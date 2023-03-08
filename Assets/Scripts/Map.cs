@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Serialization;
 
 
 public class Map : MonoBehaviour
@@ -9,7 +10,7 @@ public class Map : MonoBehaviour
     [SerializeField] int areaSize;
     [SerializeField] int numberOfImpassable;
     [SerializeField] int numberOfOvergrow;
-    [SerializeField] GameObject PR_Tile;
+    [SerializeField] GameObject tileGameObject;
 
     EState [,] tiles;
     List<Vector2Int> availablePos = new List<Vector2Int>();
@@ -18,7 +19,7 @@ public class Map : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tileSize = PR_Tile.transform.GetChild(0).GetComponent<MeshRenderer>().bounds.size.x;
+        tileSize = tileGameObject.transform.localScale.x;
         tiles = new EState[areaSize, areaSize];
         for (int i = 0; i < areaSize; i++)
         {
@@ -58,8 +59,9 @@ public class Map : MonoBehaviour
         {
             for (int j = 0; j < areaSize; j++)
             {
-                GameObject newTile = Instantiate(PR_Tile, new Vector3(i*tileSize, 0, j*tileSize), Quaternion.identity);
-                newTile.transform.GetChild(0).GetComponent<TileState>().SetState(tiles[i, j]);
+                GameObject newTile = Instantiate(tileGameObject, new Vector3(i*tileSize, 0, j*tileSize), Quaternion.identity);
+                newTile.transform.SetParent(this.transform);
+                newTile.GetComponent<TileState>().SetState(tiles[i, j]);
             }
         }
 
