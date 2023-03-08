@@ -118,6 +118,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636176800a1b33a43aad47bc62a1b9c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  growingMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  grownMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  impassableMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  overgrownMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  seedPrefab: {fileID: 4330646530372819366, guid: b6c18dd82cd30324292752297860d65e, type: 3}
+  swingStrength: 2
 --- !u!1 &4746857774766132080
 GameObject:
   m_ObjectHideFlags: 0
