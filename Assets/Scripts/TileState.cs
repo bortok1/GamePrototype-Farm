@@ -37,6 +37,7 @@ public class TileState : MonoBehaviour
     [SerializeField] public Mesh burnedMesh;
     
     private MeshFilter _myMesh;
+    private BoxCollider _myCollider;
     
     [SerializeField] public GameObject seedPrefab;
     [SerializeField] public float swingStrength = 100;    // How far seed will fly
@@ -49,10 +50,10 @@ public class TileState : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_timer > 0)
+        if (_state is EState.Burned or EState.Growing)
         {
             _timer -= Time.fixedTime;
-            if (_timer < 0)
+            if (_timer <= 0)
             {
                 switch (_state)
                 {
@@ -63,7 +64,7 @@ public class TileState : MonoBehaviour
                         SetState(EState.Grown);
                         break;
                     default:
-                        Debug.Log("<color=yellow> Warning: Timer ended with odd state!");
+                        Debug.Log("Warning: Timer ended with odd state!");
                         break;
                 }
             }
@@ -74,14 +75,21 @@ public class TileState : MonoBehaviour
     {
         if (_myMesh == null)
             _myMesh = GetComponentInChildren<MeshFilter>();
+        
+        if (_myCollider == null)
+            _myCollider = GetComponent<BoxCollider>();
 
+        _myCollider.center = new Vector3(0, 0, 0);
+
+        
         _state = newState;
         switch (_state)
         { 
             case EState.Empty: _myMesh.sharedMesh  = emptyMesh; break;
             case EState.Growing: _myMesh.sharedMesh = growingMesh; SetTimerGrowing(); break;
             case EState.Grown: _myMesh.sharedMesh = grownMesh; break;
-            case EState.Impassable: _myMesh.sharedMesh = impassableMesh; break;
+            case EState.Impassable: _myMesh.sharedMesh = impassableMesh;
+                _myCollider.center = new Vector3(0, 1, 0); break;
             case EState.Overgrown: _myMesh.sharedMesh = overgrownMesh; break;
             case EState.Burned: _myMesh.sharedMesh = burnedMesh; SetTimerBurned(); break;
         }

@@ -99,7 +99,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -115,6 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2106347045853593760}
   - component: {fileID: 1416911276303380614}
+  - component: {fileID: 3703497982964239299}
   m_Layer: 0
   m_Name: PR_Tile
   m_TagString: Untagged
@@ -150,6 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636176800a1b33a43aad47bc62a1b9c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _state: 0
+  _timer: 0
   emptyMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   growingMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   grownMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
@@ -158,3 +161,24 @@ MonoBehaviour:
   burnedMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   seedPrefab: {fileID: 4330646530372819366, guid: b6c18dd82cd30324292752297860d65e, type: 3}
   swingStrength: 2
+--- !u!65 &3703497982964239299
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4746857774766132080}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
