@@ -25,9 +25,10 @@ public enum EState
 
 public class TileState : MonoBehaviour
 {
-    private EPlayerID _ownerID;
-    [SerializeField] public EState _state;
-    [SerializeField] private float _timer;
+    private EPlayerID _ownerID = EPlayerID.None;
+    [SerializeField] private EState _state;
+    [SerializeField] private float timer;
+    private float _timer = 0;
     
     [SerializeField] public Mesh emptyMesh;
     [SerializeField] public Mesh growingMesh;
@@ -37,17 +38,14 @@ public class TileState : MonoBehaviour
     [SerializeField] public Mesh burnedMesh;
     
     private MeshFilter _myMesh;
+    private Renderer _myRenderer;
     private BoxCollider _myCollider;
     
     [SerializeField] public GameObject seedPrefab;
     [SerializeField] public float swingStrength = 100;    // How far seed will fly
 
-    void Start()
-    {
-        _ownerID = 0;
-        _timer = 2;
-    }
-
+    private bool _firstCall = true;
+    
     private void FixedUpdate()
     {
         if (_state is EState.Burned or EState.Growing)
@@ -67,31 +65,46 @@ public class TileState : MonoBehaviour
                         Debug.Log("Warning: Timer ended with odd state!");
                         break;
                 }
+
+                _timer = 0;
             }
         }
     }
 
     public void SetState(EState newState)
     {
-        if (_myMesh == null)
+        if (_firstCall)
+        {
             _myMesh = GetComponentInChildren<MeshFilter>();
-        
-        if (_myCollider == null)
+            _myRenderer = _myMesh.GetComponent<Renderer>();
             _myCollider = GetComponent<BoxCollider>();
+            _firstCall = false;
+        }
 
-        _myCollider.center = new Vector3(0, 0, 0);
+        if (_state == EState.Impassable)
+        {
+            _myCollider.center = new Vector3(0, 0, 0);
+            this.gameObject.tag = "NotAWall";
+        }
 
-        
         _state = newState;
         switch (_state)
         { 
-            case EState.Empty: _myMesh.sharedMesh  = emptyMesh; break;
-            case EState.Growing: _myMesh.sharedMesh = growingMesh; SetTimerGrowing(); break;
-            case EState.Grown: _myMesh.sharedMesh = grownMesh; break;
+            case EState.Empty: _myMesh.sharedMesh  = emptyMesh; 
+                _myRenderer.material.color = new Color(255,255,255,1); break;
+            case EState.Growing: _myMesh.sharedMesh = growingMesh; SetTimerGrowing(); 
+                _myRenderer.material.color = new Color(0,125,0,1); break;
+            case EState.Grown: _myMesh.sharedMesh = grownMesh; 
+                _myRenderer.material.color = new Color(0,255,0,1); break;
             case EState.Impassable: _myMesh.sharedMesh = impassableMesh;
-                _myCollider.center = new Vector3(0, 1, 0); break;
-            case EState.Overgrown: _myMesh.sharedMesh = overgrownMesh; break;
-            case EState.Burned: _myMesh.sharedMesh = burnedMesh; SetTimerBurned(); break;
+                _myCollider.center = new Vector3(0, 1, 0);
+                this.gameObject.tag = "Wall";
+                _myRenderer.material.color = new Color(0,0,0,1); break;
+            case EState.Overgrown: _myMesh.sharedMesh = overgrownMesh; 
+                _myRenderer.material.color = new Color(0,0,255,1); break;
+            case EState.Burned: _myMesh.sharedMesh = burnedMesh; SetTimerBurned();
+                _myRenderer.material.color = new Color(255,0,0,1);
+                _ownerID = EPlayerID.None; break;
         }
     }
     
@@ -147,11 +160,11 @@ public class TileState : MonoBehaviour
 
     private void SetTimerGrowing()
     {
-        _timer = 10f;
+        _timer = timer;
     }
     
     private void SetTimerBurned()
     {
-        _timer = 10f;
+        _timer = timer;
     }
 }

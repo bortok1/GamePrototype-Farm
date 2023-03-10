@@ -115,10 +115,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2106347045853593760}
   - component: {fileID: 1416911276303380614}
-  - component: {fileID: 3703497982964239299}
+  - component: {fileID: 2434611010459721328}
   m_Layer: 0
   m_Name: PR_Tile
-  m_TagString: Untagged
+  m_TagString: NotAWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 0
-  _timer: 0
+  timer: 1000
   emptyMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   growingMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   grownMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
@@ -161,7 +161,7 @@ MonoBehaviour:
   burnedMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   seedPrefab: {fileID: 4330646530372819366, guid: b6c18dd82cd30324292752297860d65e, type: 3}
   swingStrength: 2
---- !u!65 &3703497982964239299
+--- !u!65 &2434611010459721328
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

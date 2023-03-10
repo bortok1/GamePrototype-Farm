@@ -27,13 +27,8 @@ public class RobotBehavior : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.GetComponent<TileState>() != null)
-        {
-            if(collision.gameObject.GetComponent<TileState>()._state == EState.Impassable)
-                _checkState = true;
-        }
         if (collision.collider.GetType() == typeof(BoxCollider) 
-            && (collision.gameObject.tag == "Wall" || _checkState))
+            && (collision.gameObject.CompareTag("Wall") || _checkState))
         {
             _randomChangeDirection = Random.Range(1, 3);
             if (_randomChangeDirection == 1)
@@ -53,12 +48,10 @@ public class RobotBehavior : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.GetComponent<TileState>() != null)
+        TileState tileState = collision.gameObject.GetComponent<TileState>();
+        if (tileState != null)
         {
-            if (collision.gameObject.GetComponent<TileState>()._state == EState.Growing
-                || collision.gameObject.GetComponent<TileState>()._state == EState.Grown
-                || collision.gameObject.GetComponent<TileState>()._state == EState.Overgrown)
-                    collision.gameObject.GetComponent<TileState>().SetState(EState.Burned);
+            tileState.ChangeTileState(EPlayerID.RobotDestroyer);
         }
     }
 }
