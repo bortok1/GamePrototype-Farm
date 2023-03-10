@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine.Serialization;
 
 
 public class Map : MonoBehaviour
 {
-    [SerializeField] int areaSize;
+    [SerializeField] int areaSizeX;
+    [SerializeField] int areaSizeY;
     [SerializeField] int numberOfImpassable;
     [SerializeField] int numberOfOvergrow;
     [SerializeField] GameObject tileGameObject;
@@ -19,17 +21,23 @@ public class Map : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        areaSizeX += 2; // add space for
+        areaSizeY += 2; // barier around map
+        
         tileSize = tileGameObject.transform.localScale.x;
-        tiles = new EState[areaSize, areaSize];
-        for (int i = 0; i < areaSize; i++)
+        tiles = new EState[areaSizeX, areaSizeY];
+
+        for (int i = 0; i < areaSizeX; i++)
         {
-            for (int j = 0; j < areaSize; j++)
+            for (int j = 0; j < areaSizeY; j++)
             {
                 tiles[i, j] = EState.Empty;
-                if (i != 0 && i != 1 && i != areaSize - 1 && i != areaSize - 2)
-                {
+                if (i == 0 || i == areaSizeX - 1 || j == 0 || j == areaSizeY - 1) // bariers around map
+                    tiles[i, j] = EState.Impassable;
+                else if ((i > 3 && i < areaSizeX - 4) || !(j <= (areaSizeY / 2) + 1 && j >= (areaSizeY / 2) - 2))   // permanent empty zone
                     availablePos.Add(new Vector2Int(i, j));
-                }
+                // else
+                    // tiles[i, j] = EState.Grown;     // use to debug permanent empty zone
             }
         }
 
@@ -55,9 +63,9 @@ public class Map : MonoBehaviour
             availablePos.RemoveAt(availablePos.Count - 1);
         }
 
-        for (int i = 0; i < areaSize; i++)
+        for (int i = 0; i < areaSizeX; i++)
         {
-            for (int j = 0; j < areaSize; j++)
+            for (int j = 0; j < areaSizeY; j++)
             {
                 GameObject newTile = Instantiate(tileGameObject, new Vector3(i*tileSize, 0, j*tileSize), Quaternion.identity);
                 newTile.transform.SetParent(this.transform);
@@ -65,11 +73,5 @@ public class Map : MonoBehaviour
             }
         }
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
