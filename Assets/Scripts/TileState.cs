@@ -120,7 +120,7 @@ public class TileState : MonoBehaviour
                     {
                         SetState(EState.Empty);
                     }
-                    else
+                    else if(_state == EState.Empty)
                     {
                         _ownerID = playerID;
                         SetState(EState.Growing);                        
