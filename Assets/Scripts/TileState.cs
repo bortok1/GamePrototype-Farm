@@ -26,7 +26,7 @@ public enum EState
 public class TileState : MonoBehaviour
 {
     private EPlayerID _ownerID;
-    [SerializeField] private EState _state;
+    [SerializeField] public EState _state;
     [SerializeField] private float _timer;
     
     [SerializeField] public Mesh emptyMesh;
