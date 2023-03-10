@@ -9,6 +9,8 @@ public class RobotBehavior : MonoBehaviour
     public float movementSpeed = 2.0f;
     public float rotationSpeed = 2.0f;
     public float tileLength = 10.0f;
+    //Time
+    public TimeStop timeManager;
 
     private Vector3 _forward = Vector3.forward;
     private int _randomChangeDirection;
@@ -22,7 +24,10 @@ public class RobotBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = _forward * movementSpeed;
+        if (timeManager.GetComponent<TimeStop>().CheckTimeStop())
+            rb.velocity = _forward * 0;
+        else
+            rb.velocity = _forward * movementSpeed;
     }
 
     void OnCollisionEnter(Collision collision)
