@@ -76,10 +76,41 @@ public class Player : MonoBehaviour
     {
         if (name == "Player1") 
         {
-            dirX = Input.GetAxis("Horizontal") * movementSpeed;
-            dirZ = Input.GetAxis("Vertical") * movementSpeed;
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                dirZ = movementSpeed;
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                dirZ = -movementSpeed;
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                dirX = -movementSpeed;
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                dirX = movementSpeed;
+            }
+
+            if (Input.GetKeyUp(KeyCode.UpArrow))
+            {
+                dirZ = 0;
+            }
+            if (Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                dirZ = 0;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftArrow))
+            {
+                dirX = 0;
+            }
+            if (Input.GetKeyUp(KeyCode.RightArrow))
+            {
+                dirX = 0;
+            }
             
-            if (Input.GetKey(KeyCode.E) && tileState !=null) 
+            if (Input.GetKey(KeyCode.N) && tileState !=null) 
             {
                 tileState.ChangeTileState(EPlayerID.Player1);
             }
@@ -91,49 +122,55 @@ public class Player : MonoBehaviour
             }
             
         }
+        else if (name =="Player1" && !Input.anyKey) 
+        {
+            dirX = 0f;
+            dirZ = 0f;
+        }
+
         if (name == "Player2" && Input.anyKey)
         {
-            if (Input.GetKey(KeyCode.I))
+            if (Input.GetKey(KeyCode.W))
             {
                 dirZ = movementSpeed;
             }
-            if (Input.GetKey(KeyCode.K))
+            if (Input.GetKey(KeyCode.S))
             {
                 dirZ = -movementSpeed;
             }
-            if (Input.GetKey(KeyCode.J))
+            if (Input.GetKey(KeyCode.A))
             {
                 dirX = -movementSpeed;
             }
-            if (Input.GetKey(KeyCode.L))
+            if (Input.GetKey(KeyCode.D))
             {
                 dirX = movementSpeed;
             }
 
-            if (Input.GetKeyUp(KeyCode.I))
+            if (Input.GetKeyUp(KeyCode.W))
             {
                 dirZ = 0;
             }
-            if (Input.GetKeyUp(KeyCode.K))
+            if (Input.GetKeyUp(KeyCode.S))
             {
                 dirZ = 0;
             }
-            if (Input.GetKeyUp(KeyCode.J))
+            if (Input.GetKeyUp(KeyCode.A))
             {
                 dirX = 0;
             }
-            if (Input.GetKeyUp(KeyCode.L))
+            if (Input.GetKeyUp(KeyCode.D))
             {
                 dirX = 0;
             }
 
-            if (Input.GetKey(KeyCode.O) && tileState !=null) 
+            if (Input.GetKey(KeyCode.E) && tileState !=null) 
             {
                 tileState.ChangeTileState(EPlayerID.Player2);
             }
 
             //Time
-            if (Input.GetKey(KeyCode.N) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1())
+            if (Input.GetKey(KeyCode.Q) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1())
             {
                 timeManager.GetComponent<TimeStop>().StopTimePlayer2();
             }
@@ -265,10 +302,10 @@ public class Player : MonoBehaviour
 
     private IEnumerator Player2TimeEvent()
     {
-        //I 1
-        //J 2
-        //K 3
-        //L 4
+        //I 1 W
+        //J 2 A
+        //K 3 S
+        //L 4 D
         int i = 0;
         bool done = false;
         while (i < 3)
@@ -277,17 +314,17 @@ public class Player : MonoBehaviour
             switch (randomKey)
             {
                 case 1:
-                    Debug.Log("I");
+                    Debug.Log("W");
                     done = false;
                     while (!done)
                     {
-                        if (Input.GetKey(KeyCode.I))
+                        if (Input.GetKey(KeyCode.W))
                         {
                             i++;
                             done = true;
                             yield return new WaitForSeconds(0.2f);
                         }
-                        else if (Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.L) || Input.GetKey(KeyCode.K))
+                        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
                         {
                             i = 0;
                             yield return new WaitForSeconds(0.2f);
@@ -301,17 +338,17 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 2:
-                    Debug.Log("J");
+                    Debug.Log("A");
                     done = false;
                     while (!done)
                     {
-                        if (Input.GetKey(KeyCode.J))
+                        if (Input.GetKey(KeyCode.A))
                         {
                             i++;
                             done = true;
                             yield return new WaitForSeconds(0.2f);
                         }
-                        else if (Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.L) || Input.GetKey(KeyCode.I))
+                        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W))
                         {
                             i = 0;
                             yield return new WaitForSeconds(0.2f);
@@ -325,17 +362,17 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 3:
-                    Debug.Log("K");
+                    Debug.Log("S");
                     done = false;
                     while (!done)
                     {
-                        if (Input.GetKey(KeyCode.K))
+                        if (Input.GetKey(KeyCode.S))
                         {
                             i++;
                             done = true;
                             yield return new WaitForSeconds(0.2f);
                         }
-                        else if (Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.L) || Input.GetKey(KeyCode.I))
+                        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W))
                         {
                             i = 0;
                             yield return new WaitForSeconds(0.2f);
@@ -349,17 +386,17 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 4:
-                    Debug.Log("L");
+                    Debug.Log("D");
                     done = false;
                     while (!done)
                     {
-                        if (Input.GetKey(KeyCode.L))
+                        if (Input.GetKey(KeyCode.D))
                         {
                             i++;
                             done = true;
                             yield return new WaitForSeconds(0.2f);
                         }
-                        else if (Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.I))
+                        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W))
                         {
                             i = 0;
                             yield return new WaitForSeconds(0.2f);
