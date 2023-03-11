@@ -93,9 +93,17 @@ public class TileState : MonoBehaviour
             case EState.Empty: _myMesh.sharedMesh  = emptyMesh; 
                 _myRenderer.material.color = new Color(255,255,255,1); break;
             case EState.Growing: _myMesh.sharedMesh = growingMesh; SetTimerGrowing(); 
-                _myRenderer.material.color = new Color(0,125,0,1); break;
+                if(_ownerID == EPlayerID.Player1)
+                    _myRenderer.material.color = new Color(150,0,150,1); 
+                if(_ownerID == EPlayerID.Player2)
+                    _myRenderer.material.color = new Color(0,150,150,1);
+                break;
             case EState.Grown: _myMesh.sharedMesh = grownMesh; 
-                _myRenderer.material.color = new Color(0,255,0,1); break;
+                if(_ownerID == EPlayerID.Player1)
+                    _myRenderer.material.color = new Color(255,0,255,1); 
+                if(_ownerID == EPlayerID.Player2)
+                    _myRenderer.material.color = new Color(0,255,255,1);
+                break;
             case EState.Impassable: _myMesh.sharedMesh = impassableMesh;
                 _myCollider.center = new Vector3(0, 1, 0);
                 this.gameObject.tag = "Wall";
