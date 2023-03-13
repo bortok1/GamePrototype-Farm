@@ -10,16 +10,21 @@ public class Player : MonoBehaviour
     public bool flagPlayer1 = true;
     public bool flagPlayer2 = true;
 
+    float clickTimer;
 
     private Rigidbody rb;
     public float movementSpeed;
     private float dirX, dirZ;
     public float ID;
     public TileState tileState;
+
+    public bool canPlayer1Hit = false;
+    public bool canPlayer2Hit = false;
     // Start is called before the first frame update
     void Start()
     { 
         rb = GetComponent<Rigidbody>();
+        clickTimer = Time.time;
     }
 
     void FixedUpdate() 
@@ -68,8 +73,28 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter(Collision collision) 
     {
+        if (collision.collider.GetType() == typeof(SphereCollider)) {
+            tileState = collision.gameObject.GetComponent<TileState>();
+        }
 
-        tileState = collision.gameObject.GetComponent<TileState>();
+    }
+
+    void OnTriggerEnter(Collider collider) 
+    {
+        if (collider.gameObject.tag == "Player")
+        {
+            canPlayer1Hit = true;
+            canPlayer2Hit = true;
+        }
+    }
+
+    void OnTriggerExit(Collider collider) 
+    {
+        if (collider.gameObject.tag == "Player")
+        {
+            canPlayer1Hit = false;
+            canPlayer2Hit = false;
+        }
     }
 
     void Update()
@@ -114,6 +139,13 @@ public class Player : MonoBehaviour
             {
                 tileState.ChangeTileState(EPlayerID.Player1);
             }
+
+            if (Input.GetKey(KeyCode.L) && canPlayer1Hit == true && (Time.time - clickTimer > 5.0f))
+            {
+                clickTimer = Time.time;
+                Debug.Log("HIT 1");
+                //canPlayer1Hit = false;
+            } 
             //Time
 
             if (Input.GetKey(KeyCode.M) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer2())
@@ -168,6 +200,13 @@ public class Player : MonoBehaviour
             {
                 tileState.ChangeTileState(EPlayerID.Player2);
             }
+
+            if (Input.GetKey(KeyCode.R) && canPlayer2Hit == true && (Time.time - clickTimer > 5.0f))
+            {
+                clickTimer = Time.time;
+                Debug.Log("HIT 2");
+                //canPlayer2Hit = false;
+            } 
 
             //Time
             if (Input.GetKey(KeyCode.Q) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1())
