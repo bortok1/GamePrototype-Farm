@@ -10,7 +10,8 @@ public class Player : MonoBehaviour
     public bool flagPlayer1 = true;
     public bool flagPlayer2 = true;
 
-    float clickTimer;
+    float hitTimer;
+    float plantTimer;
 
     private Rigidbody rb;
     public float movementSpeed;
@@ -24,7 +25,8 @@ public class Player : MonoBehaviour
     void Start()
     { 
         rb = GetComponent<Rigidbody>();
-        clickTimer = Time.time;
+        hitTimer = Time.time;
+        plantTimer = Time.time;
     }
 
     void FixedUpdate() 
@@ -73,10 +75,7 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter(Collision collision) 
     {
-        if (collision.collider.GetType() == typeof(SphereCollider)) {
-            tileState = collision.gameObject.GetComponent<TileState>();
-        }
-
+        tileState = collision.gameObject.GetComponent<TileState>();
     }
 
     void OnTriggerEnter(Collider collider) 
@@ -135,14 +134,15 @@ public class Player : MonoBehaviour
                 dirX = 0;
             }
             
-            if (Input.GetKey(KeyCode.N) && tileState !=null) 
+            if (Input.GetKey(KeyCode.N) && tileState !=null && (Time.time - plantTimer > 0.5f)) 
             {
+                plantTimer = Time.time;
                 tileState.ChangeTileState(EPlayerID.Player1);
             }
 
-            if (Input.GetKey(KeyCode.L) && canPlayer1Hit == true && (Time.time - clickTimer > 5.0f))
+            if (Input.GetKey(KeyCode.L) && canPlayer1Hit == true && (Time.time - hitTimer > 2.0f))
             {
-                clickTimer = Time.time;
+                hitTimer = Time.time;
                 Debug.Log("HIT 1");
                 //canPlayer1Hit = false;
             } 
@@ -196,14 +196,16 @@ public class Player : MonoBehaviour
                 dirX = 0;
             }
 
-            if (Input.GetKey(KeyCode.E) && tileState !=null) 
+            if (Input.GetKey(KeyCode.E) && tileState !=null && (Time.time - plantTimer > 0.5f)) 
             {
+                plantTimer = Time.time;
+                //Debug.Log(Time.time);
                 tileState.ChangeTileState(EPlayerID.Player2);
             }
 
-            if (Input.GetKey(KeyCode.R) && canPlayer2Hit == true && (Time.time - clickTimer > 5.0f))
+            if (Input.GetKey(KeyCode.R) && canPlayer2Hit == true && (Time.time - hitTimer > 2.0f))
             {
-                clickTimer = Time.time;
+                hitTimer = Time.time;
                 Debug.Log("HIT 2");
                 //canPlayer2Hit = false;
             } 
