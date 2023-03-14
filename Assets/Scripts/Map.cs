@@ -8,10 +8,10 @@ using UnityEngine.Serialization;
 
 public class Map : MonoBehaviour
 {
-    [SerializeField] int areaSizeX;
-    [SerializeField] int areaSizeY;
-    [SerializeField] int numberOfImpassable;
-    [SerializeField] int numberOfOvergrow;
+    [SerializeField] [Range(0, 100)] int areaSizeX;
+    [SerializeField] [Range(0, 100)] int areaSizeY;
+    [SerializeField] [Range(0, 100)] int numberOfImpassable;
+    [SerializeField] [Range(0, 100)] int numberOfOvergrow;
     [SerializeField] GameObject tileGameObject;
 
     EState [,] tiles;
@@ -34,10 +34,11 @@ public class Map : MonoBehaviour
                 tiles[i, j] = EState.Empty;
                 if (i == 0 || i == areaSizeX - 1 || j == 0 || j == areaSizeY - 1) // bariers around map
                     tiles[i, j] = EState.Impassable;
-                else if ((i > 3 && i < areaSizeX - 4) || !(j <= (areaSizeY / 2) + 1 && j >= (areaSizeY / 2) - 2))   // permanent empty zone
+                else if ((i > 3 && i < areaSizeX - 4) || !(j <= (areaSizeY / 2) + 1 && j >= (areaSizeY / 2) - 2))
+                    // permanent empty zone
                     availablePos.Add(new Vector2Int(i, j));
-                // else
-                    // tiles[i, j] = EState.Grown;     // use to debug permanent empty zone
+                //else
+                  //   tiles[i, j] = EState.Grown;     // use to debug permanent empty zone
             }
         }
 

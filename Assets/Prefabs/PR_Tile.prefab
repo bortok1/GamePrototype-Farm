@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 0
-  timer: 1000
+  timer: 5000
   emptyMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   growingMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   grownMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
