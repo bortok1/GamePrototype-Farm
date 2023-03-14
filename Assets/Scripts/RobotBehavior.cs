@@ -13,12 +13,18 @@ public class RobotBehavior : MonoBehaviour
     public TimeStop timeManager;
 
     private Vector3 _forward = Vector3.forward;
-    private int _randomChangeDirection;
     private int _changeAngle;
-    private bool _checkState = false; 
+    private bool _checkState = false;
+    private GameObject _arrow;
     void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody>();   
+        rb = gameObject.GetComponent<Rigidbody>();
+        _changeAngle = 90;
+        if(transform.childCount > 0)
+        {
+            _arrow = transform.Find("Arrow").gameObject;
+            _arrow.transform.rotation = Quaternion.Slerp(this.transform.rotation, this.transform.rotation * Quaternion.Euler(0, _changeAngle, 0), rotationSpeed);
+        }
     }
 
     // Update is called once per frame
@@ -32,19 +38,8 @@ public class RobotBehavior : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.GetType() == typeof(BoxCollider) 
-            && (collision.gameObject.CompareTag("Wall") || _checkState))
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Wall") || _checkState)
         {
-            _randomChangeDirection = Random.Range(1, 3);
-            if (_randomChangeDirection == 1)
-            {
-                _changeAngle = 90;
-            }
-            else
-            if (_randomChangeDirection == 2)
-            {
-                _changeAngle = -90;
-            }
             _forward = Quaternion.Euler(0, _changeAngle, 0) * _forward;
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, this.transform.rotation * Quaternion.Euler(0, _changeAngle, 0), rotationSpeed);
         }
