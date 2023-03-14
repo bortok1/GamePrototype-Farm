@@ -14,7 +14,6 @@ public class RobotBehavior : MonoBehaviour
 
     private Vector3 _forward = Vector3.forward;
     private int _changeAngle;
-    private bool _checkState = false;
     private GameObject _arrow;
     void Start()
     {
@@ -38,12 +37,12 @@ public class RobotBehavior : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Wall") || _checkState)
+        if (collision.collider.GetType() == typeof(BoxCollider)
+            && (collision.gameObject.CompareTag("Wall")))
         {
             _forward = Quaternion.Euler(0, _changeAngle, 0) * _forward;
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, this.transform.rotation * Quaternion.Euler(0, _changeAngle, 0), rotationSpeed);
         }
-        _checkState = false;
     }
 
     private void OnCollisionExit(Collision collision)
