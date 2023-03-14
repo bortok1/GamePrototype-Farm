@@ -45,6 +45,11 @@ public class TileState : MonoBehaviour
     [SerializeField] public float swingStrength = 100;    // How far seed will fly
 
     private bool _firstCall = true;
+
+    public EPlayerID GetOwner()
+    {
+        return _ownerID;
+    }
     
     private void FixedUpdate()
     {
