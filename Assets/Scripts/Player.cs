@@ -25,6 +25,10 @@ public class Player : MonoBehaviour
     public bool canPlayer1Hit = false;
     public bool canPlayer2Hit = false;
 
+    public RobotBehavior robot;
+    public bool canPlayer1HitRobot = false;
+    public bool canPlayer2HitRobot = false;
+
     private Rigidbody rb;
     public float movementSpeed;
     private float dirX, dirZ;
@@ -117,7 +121,11 @@ public class Player : MonoBehaviour
         }
         if (collider.gameObject.tag == "Robot") 
         {
+            canPlayer1HitRobot = true;
+            canPlayer2HitRobot = true;
             Debug.Log("ROBOT");
+            Debug.Log(collider.gameObject.transform.position);
+            Debug.Log(collider.gameObject.GetComponent<Rigidbody>().velocity);
         }
     }
 
@@ -130,6 +138,8 @@ public class Player : MonoBehaviour
         }
         if (collider.gameObject.tag == "Robot") 
         {
+            canPlayer1HitRobot = false;
+            canPlayer2HitRobot = false;
             Debug.Log("ROBOT EXIT");
         }
     }
@@ -184,6 +194,13 @@ public class Player : MonoBehaviour
                 hitTimer = Time.time;
                 Debug.Log("HIT 1");
                 hitManager.GetComponent<PlayerHit>().StunP2();
+            } 
+
+            if (Input.GetKey(KeyCode.L) && canPlayer1HitRobot == true && (Time.time - hitTimer > 2.0f))
+            {
+                hitTimer = Time.time;
+                robot.GetComponent<RobotBehavior>().OnHitByPlayer(transform.position);
+                Debug.Log("HIT ROBOT");
             } 
             //Time
 
@@ -250,6 +267,13 @@ public class Player : MonoBehaviour
                 Debug.Log("HIT 2");
                 hitManager.GetComponent<PlayerHit>().StunP1();
             } 
+
+            if (Input.GetKey(KeyCode.R) && canPlayer2HitRobot == true && (Time.time - hitTimer > 2.0f))
+            {
+                hitTimer = Time.time;
+                robot.GetComponent<RobotBehavior>().OnHitByPlayer(transform.position);
+                Debug.Log("HIT ROBOT");
+            }
 
             //Time
             if (Input.GetKey(KeyCode.Q) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1() && seedsp2 == 5)

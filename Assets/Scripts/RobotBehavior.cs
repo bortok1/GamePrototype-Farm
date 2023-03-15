@@ -15,6 +15,10 @@ public class RobotBehavior : MonoBehaviour
     private Vector3 _forward = Vector3.forward;
     private int _changeAngle;
     private GameObject _arrow;
+
+    //Hit
+    private float differenceInXPosition;
+    private float differenceInZPosition;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -52,5 +56,34 @@ public class RobotBehavior : MonoBehaviour
         {
             tileState.ChangeTileState(EPlayerID.RobotDestroyer);
         }
+    }
+
+    public void OnHitByPlayer(Vector3 playerLocation)
+    {
+        Debug.Log("IDK");
+        Debug.Log(playerLocation.x);
+        differenceInZPosition = Mathf.Abs(playerLocation.z - transform.position.z);
+        differenceInXPosition = Mathf.Abs(playerLocation.x - transform.position.x);
+        
+        if (playerLocation.x > transform.position.x && differenceInXPosition>differenceInZPosition)
+        {
+            Debug.Log("Player Prawo"); //robot ma isc w lewo 
+        }
+
+        if (playerLocation.x < transform.position.x && differenceInXPosition>differenceInZPosition)
+        {
+            Debug.Log("Player Lewo"); //robot ma isc w prawo
+        }
+
+        if (playerLocation.z < transform.position.z && differenceInZPosition>differenceInXPosition)
+        {
+            Debug.Log("Player Pod"); //robot ma isc w gore
+        }
+
+        if (playerLocation.z > transform.position.z && differenceInZPosition>differenceInXPosition)
+        {
+            Debug.Log("Player Nad"); //robot ma isc w dol
+        }
+
     }
 }

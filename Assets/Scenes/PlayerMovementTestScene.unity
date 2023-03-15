@@ -934,6 +934,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5ecdb2ce55d2bc45b7dfc08b1c2b9a9, type: 3}
+--- !u!114 &1523250942 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5156588756369331018, guid: f5ecdb2ce55d2bc45b7dfc08b1c2b9a9, type: 3}
+  m_PrefabInstance: {fileID: 1430127641}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d794d803fd8ea04da9fee2cd2b94e67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1621834110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1756,6 +1767,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7670838860720976878, guid: 6ec8ef5fc83763c479ddfa774bf1646e, type: 3}
+      propertyPath: robot
+      value: 
+      objectReference: {fileID: 1523250942}
+    - target: {fileID: 7670838860720976878, guid: 6ec8ef5fc83763c479ddfa774bf1646e, type: 3}
       propertyPath: hitManager
       value: 
       objectReference: {fileID: 1299493989}
@@ -1913,6 +1928,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7755975132095700971, guid: ab3ffa4dfc5f1c54e900cc671d4db667, type: 3}
+      propertyPath: robot
+      value: 
+      objectReference: {fileID: 1523250942}
     - target: {fileID: 7755975132095700971, guid: ab3ffa4dfc5f1c54e900cc671d4db667, type: 3}
       propertyPath: hitManager
       value: 
