@@ -67,23 +67,30 @@ public class RobotBehavior : MonoBehaviour
         
         if (playerLocation.x > transform.position.x && differenceInXPosition>differenceInZPosition)
         {
-            Debug.Log("Player Prawo"); //robot ma isc w lewo 
+            Debug.Log("Player Prawo"); //robot ma isc w lewo
+            _forward = Vector3.left;
+            this.transform.rotation = new Quaternion(0.0f,-0.70711f,0.0f,0.70711f);
         }
 
         if (playerLocation.x < transform.position.x && differenceInXPosition>differenceInZPosition)
         {
             Debug.Log("Player Lewo"); //robot ma isc w prawo
+            _forward = Vector3.right;
+            this.transform.rotation = new Quaternion(0.0f,0.70711f,0.0f,-0.70711f);
         }
 
         if (playerLocation.z < transform.position.z && differenceInZPosition>differenceInXPosition)
         {
             Debug.Log("Player Pod"); //robot ma isc w gore
+            _forward = Vector3.forward;
+            this.transform.rotation = new Quaternion(0,0,0,1);
         }
 
         if (playerLocation.z > transform.position.z && differenceInZPosition>differenceInXPosition)
         {
             Debug.Log("Player Nad"); //robot ma isc w dol
+            _forward = Vector3.back;
+            this.transform.rotation = new Quaternion(0,-1,0,0);
         }
-
     }
 }
