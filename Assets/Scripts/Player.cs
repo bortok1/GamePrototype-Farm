@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -9,6 +10,12 @@ public class Player : MonoBehaviour
     public int randomKey = 0;
     public bool flagPlayer1 = true;
     public bool flagPlayer2 = true;
+    [SerializeField] private TextMeshProUGUI textTimePlayer1;
+    [SerializeField] private TextMeshProUGUI textTimePlayer2;
+
+    //Seeds
+    public int seedsp1 = 5;
+    public int seedsp2 = 5;
 
     public PlayerHit hitManager;
     float hitTimer;
@@ -61,6 +68,7 @@ public class Player : MonoBehaviour
                 rb.velocity = new Vector3(dirX, rb.velocity.y, dirZ);
                 flagPlayer1 = true;
                 flagPlayer2Hit = true;
+                textTimePlayer1.text = "";
             }
                 
         }
@@ -89,6 +97,7 @@ public class Player : MonoBehaviour
                 rb.velocity = new Vector3(dirX, rb.velocity.y, dirZ);
                 flagPlayer2 = true;
                 flagPlayer1Hit = true;
+                textTimePlayer2.text = "";
             }
         }
     
@@ -178,9 +187,10 @@ public class Player : MonoBehaviour
             } 
             //Time
 
-            if (Input.GetKey(KeyCode.M) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer2())
+            if (Input.GetKey(KeyCode.M) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer2() && seedsp1 == 5)
             {
                 timeManager.GetComponent<TimeStop>().StopTimePlayer1();
+                seedsp1 = 0;
             }
             
         }
@@ -242,9 +252,10 @@ public class Player : MonoBehaviour
             } 
 
             //Time
-            if (Input.GetKey(KeyCode.Q) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1())
+            if (Input.GetKey(KeyCode.Q) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1() && seedsp2 == 5)
             {
                 timeManager.GetComponent<TimeStop>().StopTimePlayer2();
+                seedsp1 = 0;
             }
         }
         else if (name =="Player2" && !Input.anyKey) 
@@ -269,7 +280,7 @@ public class Player : MonoBehaviour
             switch (randomKey)
             {
                 case 1:
-                    Debug.Log("UP");
+                    textTimePlayer1.text = "UP";
                     done = false;
                     while (!done)
                     {
@@ -293,7 +304,7 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 2:
-                    Debug.Log("Down");
+                    textTimePlayer1.text = "Down";
                     done = false;
                     while (!done)
                     {
@@ -318,7 +329,7 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 3:
-                    Debug.Log("Left");
+                    textTimePlayer1.text = "Left";
                     done = false;
                     while (!done)
                     {
@@ -342,7 +353,7 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 4:
-                    Debug.Log("Right");
+                    textTimePlayer1.text = "Right";
                     done = false;
                     while (!done)
                     {
@@ -386,7 +397,7 @@ public class Player : MonoBehaviour
             switch (randomKey)
             {
                 case 1:
-                    Debug.Log("W");
+                    textTimePlayer2.text = "W";
                     done = false;
                     while (!done)
                     {
@@ -410,7 +421,7 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 2:
-                    Debug.Log("A");
+                    textTimePlayer2.text = "A";
                     done = false;
                     while (!done)
                     {
@@ -434,7 +445,7 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 3:
-                    Debug.Log("S");
+                    textTimePlayer2.text = "S";
                     done = false;
                     while (!done)
                     {
@@ -458,7 +469,7 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 4:
-                    Debug.Log("D");
+                    textTimePlayer2.text = "D";
                     done = false;
                     while (!done)
                     {
