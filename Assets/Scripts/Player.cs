@@ -10,8 +10,13 @@ public class Player : MonoBehaviour
     public bool flagPlayer1 = true;
     public bool flagPlayer2 = true;
 
+    public PlayerHit hitManager;
     float hitTimer;
     float plantTimer;
+    public bool flagPlayer1Hit = true;
+    public bool flagPlayer2Hit = true;
+    public bool canPlayer1Hit = false;
+    public bool canPlayer2Hit = false;
 
     private Rigidbody rb;
     public float movementSpeed;
@@ -19,8 +24,7 @@ public class Player : MonoBehaviour
     public float ID;
     public TileState tileState;
 
-    public bool canPlayer1Hit = false;
-    public bool canPlayer2Hit = false;
+
     // Start is called before the first frame update
     void Start()
     { 
@@ -31,7 +35,6 @@ public class Player : MonoBehaviour
 
     void FixedUpdate() 
     {
-        //rb.velocity = new Vector3(dirX, rb.velocity.y, dirZ);
 
         //Time
         if (name == "Player1")
@@ -45,10 +48,19 @@ public class Player : MonoBehaviour
                     flagPlayer1 = false;
                 }   
             }
+            else if (hitManager.GetComponent<PlayerHit>().CheckHitPlayer1())
+            {
+                rb.velocity = new Vector3(0, 0, 0);
+                if (flagPlayer2Hit)
+                {
+                    flagPlayer2Hit = false;
+                }
+            }
             else
             {
                 rb.velocity = new Vector3(dirX, rb.velocity.y, dirZ);
                 flagPlayer1 = true;
+                flagPlayer2Hit = true;
             }
                 
         }
@@ -64,10 +76,19 @@ public class Player : MonoBehaviour
                     flagPlayer2 = false;
                 }
             }
+            else if (hitManager.GetComponent<PlayerHit>().CheckHitPlayer2())
+            {
+                rb.velocity = new Vector3(0, 0, 0);
+                if (flagPlayer1Hit)
+                {
+                    flagPlayer1Hit = false;
+                }
+            }
             else
             {
                 rb.velocity = new Vector3(dirX, rb.velocity.y, dirZ);
                 flagPlayer2 = true;
+                flagPlayer1Hit = true;
             }
         }
     
@@ -85,6 +106,10 @@ public class Player : MonoBehaviour
             canPlayer1Hit = true;
             canPlayer2Hit = true;
         }
+        if (collider.gameObject.tag == "Robot") 
+        {
+            Debug.Log("ROBOT");
+        }
     }
 
     void OnTriggerExit(Collider collider) 
@@ -94,12 +119,17 @@ public class Player : MonoBehaviour
             canPlayer1Hit = false;
             canPlayer2Hit = false;
         }
+        if (collider.gameObject.tag == "Robot") 
+        {
+            Debug.Log("ROBOT EXIT");
+        }
     }
 
     void Update()
     {
-        if (name == "Player1") 
+        if (name == "Player1" && Input.anyKey) 
         {
+
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 dirZ = movementSpeed;
@@ -140,11 +170,11 @@ public class Player : MonoBehaviour
                 tileState.ChangeTileState(EPlayerID.Player1);
             }
 
-            if (Input.GetKey(KeyCode.L) && canPlayer1Hit == true && (Time.time - hitTimer > 2.0f))
+            if (Input.GetKey(KeyCode.L) && canPlayer1Hit == true && (Time.time - hitTimer > 2.0f) && !hitManager.GetComponent<PlayerHit>().CheckHitPlayer1())
             {
                 hitTimer = Time.time;
                 Debug.Log("HIT 1");
-                //canPlayer1Hit = false;
+                hitManager.GetComponent<PlayerHit>().StunP2();
             } 
             //Time
 
@@ -159,6 +189,7 @@ public class Player : MonoBehaviour
             dirX = 0f;
             dirZ = 0f;
         }
+
 
         if (name == "Player2" && Input.anyKey)
         {
@@ -203,11 +234,11 @@ public class Player : MonoBehaviour
                 tileState.ChangeTileState(EPlayerID.Player2);
             }
 
-            if (Input.GetKey(KeyCode.R) && canPlayer2Hit == true && (Time.time - hitTimer > 2.0f))
+            if (Input.GetKey(KeyCode.R) && canPlayer2Hit == true && (Time.time - hitTimer > 2.0f) && !hitManager.GetComponent<PlayerHit>().CheckHitPlayer2())
             {
                 hitTimer = Time.time;
                 Debug.Log("HIT 2");
-                //canPlayer2Hit = false;
+                hitManager.GetComponent<PlayerHit>().StunP1();
             } 
 
             //Time

@@ -356,7 +356,7 @@ RectTransform:
   m_Children:
   - {fileID: 1808300918}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -423,8 +423,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -695,6 +695,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1299493989 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2109788966090814731, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+  m_PrefabInstance: {fileID: 2088370507}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38526fe1b7dca64e933ee751c89a0a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1404744023
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,11 +744,14 @@ MonoBehaviour:
   randomKey: 0
   flagPlayer1: 1
   flagPlayer2: 1
+  hitManager: {fileID: 1299493989}
+  flagPlayer1Hit: 1
+  flagPlayer2Hit: 1
+  canPlayer1Hit: 0
+  canPlayer2Hit: 0
   movementSpeed: 8
   ID: 0
   tileState: {fileID: 0}
-  canPlayer1Hit: 0
-  canPlayer2Hit: 0
 --- !u!136 &1404744025
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -946,6 +960,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robot
       objectReference: {fileID: 0}
+    - target: {fileID: 2805898177053074292, guid: f5ecdb2ce55d2bc45b7dfc08b1c2b9a9, type: 3}
+      propertyPath: m_TagString
+      value: Robot
+      objectReference: {fileID: 0}
     - target: {fileID: 5156588756369331018, guid: f5ecdb2ce55d2bc45b7dfc08b1c2b9a9, type: 3}
       propertyPath: timeManager
       value: 
@@ -1025,7 +1043,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1670011066
 GameObject:
@@ -1216,11 +1234,14 @@ MonoBehaviour:
   randomKey: 0
   flagPlayer1: 1
   flagPlayer2: 1
+  hitManager: {fileID: 1299493989}
+  flagPlayer1Hit: 1
+  flagPlayer2Hit: 1
+  canPlayer1Hit: 0
+  canPlayer2Hit: 0
   movementSpeed: 8
   ID: 0
   tileState: {fileID: 0}
-  canPlayer1Hit: 0
-  canPlayer2Hit: 0
 --- !u!136 &1835591855
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1430,6 +1451,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2064907177}
   m_CullTransparentMesh: 1
+--- !u!1001 &2088370507
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 878983758541828473, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 878983758541828473, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 878983758541828473, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 878983758541828473, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 878983758541828473, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 878983758541828473, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 878983758541828473, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 878983758541828473, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 878983758541828473, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 878983758541828473, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 878983758541828473, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2109788966090814731, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+      propertyPath: timer
+      value: 7000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5630466854424416142, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
+      propertyPath: m_Name
+      value: HitManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 63d5231a3de455c4f909b58e4aee5edf, type: 3}
 --- !u!1 &2143004658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,8 +1576,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
