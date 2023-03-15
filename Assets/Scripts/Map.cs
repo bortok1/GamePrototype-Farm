@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using System.Linq;
 using TMPro;
@@ -24,6 +24,8 @@ public class Map : MonoBehaviour
     [SerializeField] [Range(0, 300)] private float timePerRound = 120;
     [SerializeField] [Range(0, 300)] private float timeBetweenRounds = 5;
     
+    [SerializeField] private bool randomMap = true;
+    
     private List<TileState> _tileStates = new();
     private readonly List<Vector2Int> _availablePos = new();
 
@@ -37,16 +39,86 @@ public class Map : MonoBehaviour
         _smallTimer = timeBetweenRounds;
         
         _theThing = areaSizeX * areaSizeY - numberOfImpassable;
+
+        if (randomMap)
+        {
+            areaSizeX += 2; // add space for
+            areaSizeY += 2; // barier around map
         
-        areaSizeX += 2; // add space for
-        areaSizeY += 2; // barier around map
+            GenerateMap();
+        }
+        else LoadMap();
+    }
+
+    private void LoadMap()
+    {
+        string path = Application.dataPath + "/SavedMaps/savedMap.map";
+
+        // If file exists
+        if (!File.Exists(path)) 
+        {
+            GenerateMap();
+            Debug.Log("Could not load map from file!");
+            return;
+        }
+
+        // Start reading
+        StreamReader reader = new StreamReader(path);
+        List<string> lines = new() { reader.ReadLine() };
+
+        while (lines.Last() != null)
+        {
+            lines.Add(reader.ReadLine());
+        }
+        reader.Close();
+
+        // Add space for barriers around map
+        areaSizeX = lines[0].Length + 2;
+        areaSizeY = lines.Count - 1 + 2;
+
+        EState[,] tiles = new EState[areaSizeX, areaSizeX];
         
-        GenerateMap();
+        // Set tiles table
+        for (int i = 0; i < areaSizeX; i++)
+        {
+
+            for (int j = 0; j < areaSizeY; j++)
+            {
+
+                if (i == 0 || i == areaSizeX - 1 || j == 0 || j == areaSizeY - 1) // bariers around map
+                {
+                    tiles[i, j] = EState.Impassable;
+                }
+                else
+                {
+                    switch (lines[j - 1][i - 1])
+                    {
+                        case ' ':
+                            tiles[i, j] = EState.Empty;
+                            break;
+                        case '|':
+                            tiles[i, j] = EState.Impassable;
+                            break;
+                        case 'o':
+                            tiles[i, j] = EState.Overgrown;
+                            break;
+                        case 'x':
+                            tiles[i, j] = EState.Burned;
+                            break;
+                        default:
+                            Debug.Log("Unrecognised character in map file!");
+                            tiles[i, j] = EState.Empty;
+                            break;
+                    }
+                }
+            }
+        }
+
+        BuildMap(tiles);
     }
 
     private void GenerateMap()
     {
-        float tileSize = tileGameObject.transform.localScale.x;
         EState [,] tiles = new EState[areaSizeX, areaSizeY];
 
         for (int i = 0; i < areaSizeX; i++)
@@ -58,8 +130,6 @@ public class Map : MonoBehaviour
                     tiles[i, j] = EState.Impassable;
                 else if ((i > 3 && i < areaSizeX - 4) || !(j <= (areaSizeY / 2) + 1 && j >= (areaSizeY / 2) - 2)) // permanent empty zone
                     _availablePos.Add(new Vector2Int(i, j));
-                //else
-                  //   tiles[i, j] = EState.Grown;     // use to debug permanent empty zone
             }
         }
 
@@ -85,6 +155,13 @@ public class Map : MonoBehaviour
             _availablePos.RemoveAt(_availablePos.Count - 1);
         }
 
+        BuildMap(tiles);
+    }
+
+    private void BuildMap(EState[,] tiles)
+    {
+        float tileSize = tileGameObject.transform.localScale.x;
+        
         for (int i = 0; i < areaSizeX; i++)
         {
             for (int j = 0; j < areaSizeY; j++)
