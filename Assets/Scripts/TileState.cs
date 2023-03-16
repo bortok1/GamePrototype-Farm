@@ -22,7 +22,7 @@ public enum EState
 public class TileState : MonoBehaviour
 {
     private EPlayerID _ownerID = EPlayerID.None;
-    [SerializeField] private EState _state;
+    [SerializeField] public EState _state;
     [SerializeField] private float defaultTimerGrow;
     [SerializeField] private float defaultTimerBurn;
     private float timerGrow = 0;
@@ -53,8 +53,9 @@ public class TileState : MonoBehaviour
 
     public void Water()
     {
-        if (_watered)
+        if (!_watered)
         {
+            _watered = true;
             _timerBurn *= 0.5f;
             timerGrow *= 0.5f;
         }

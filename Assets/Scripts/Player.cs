@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public PlayerHit hitManager;
     float hitTimer;
     float plantTimer;
+    float destroyTimer;
     public bool flagPlayer1Hit = true;
     public bool flagPlayer2Hit = true;
     public bool canPlayer1Hit = false;
@@ -44,6 +45,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         hitTimer = Time.time;
         plantTimer = Time.time;
+        destroyTimer = Time.time;
     }
 
     void FixedUpdate() 
@@ -94,7 +96,7 @@ public class Player : MonoBehaviour
             }
             else if (hitManager.GetComponent<PlayerHit>().CheckHitPlayer2())
             {
-                tool.DropTool();
+                if(tool) tool.DropTool();
                 tool = null;
                 rb.velocity = new Vector3(0, 0, 0);
                 if (flagPlayer1Hit)
@@ -205,10 +207,28 @@ public class Player : MonoBehaviour
                 dirX = 0;
             }
             
-            if (Input.GetKey(KeyCode.N) && tileState !=null && (Time.time - plantTimer > 0.5f)) 
+            if (Input.GetKey(KeyCode.N) && tileState != null) 
             {
-                plantTimer = Time.time;
-                tileState.ChangeTileState(EPlayerID.Player1);
+                if (tileState._state == EState.Empty && (Time.time - plantTimer > 0.7f || 
+                    (tool.toolType == ETool.Hoe && Time.time - plantTimer > 0.1f)))
+                {
+                    plantTimer = Time.time;
+                    tileState.ChangeTileState(EPlayerID.Player1);
+                }
+                if ((Time.time - destroyTimer > 0.7f || (tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)) &&
+                    (tileState._state == EState.Growing || tileState._state == EState.Grown) &&
+                    tileState.GetOwner() == EPlayerID.Player2)
+                {
+                    destroyTimer = Time.time;
+                    tileState.ChangeTileState(EPlayerID.Player1);
+                }
+                if (tileState._state == EState.Overgrown && (Time.time - destroyTimer > 0.7f || 
+                    (tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)))
+                {
+                    destroyTimer = Time.time;
+                    tileState.ChangeTileState(EPlayerID.Player1);
+                }
+                if (tool && tool.toolType == ETool.WateringCan) tileState.Water();
             }
 
             if (Input.GetKey(KeyCode.L) && canPlayer1Hit == true && (Time.time - hitTimer > 2.0f) && !hitManager.GetComponent<PlayerHit>().CheckHitPlayer1())
@@ -276,11 +296,28 @@ public class Player : MonoBehaviour
                 dirX = 0;
             }
 
-            if (Input.GetKey(KeyCode.E) && tileState !=null && (Time.time - plantTimer > 0.5f)) 
+            if (Input.GetKey(KeyCode.E) && tileState !=null) 
             {
-                plantTimer = Time.time;
-                //Debug.Log(Time.time);
-                tileState.ChangeTileState(EPlayerID.Player2);
+                if (tileState._state == EState.Empty && (Time.time - plantTimer > 0.7f ||
+                    (tool.toolType == ETool.Hoe && Time.time - plantTimer > 0.1f)))
+                {
+                    plantTimer = Time.time;
+                    tileState.ChangeTileState(EPlayerID.Player2);
+                }
+                if ((Time.time - destroyTimer > 0.7f || (tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)) &&
+                    (tileState._state == EState.Growing || tileState._state == EState.Grown) &&
+                    tileState.GetOwner() == EPlayerID.Player1)
+                {
+                    destroyTimer = Time.time;
+                    tileState.ChangeTileState(EPlayerID.Player2);
+                }
+                if (tileState._state == EState.Overgrown && (Time.time - destroyTimer > 0.7f ||
+                    (tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)))
+                {
+                    destroyTimer = Time.time;
+                    tileState.ChangeTileState(EPlayerID.Player2);
+                }
+                if (tool && tool.toolType == ETool.WateringCan) tileState.Water();
             }
 
             if (Input.GetKey(KeyCode.R) && canPlayer2Hit == true && (Time.time - hitTimer > 2.0f) && !hitManager.GetComponent<PlayerHit>().CheckHitPlayer2())
