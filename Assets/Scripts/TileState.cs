@@ -23,8 +23,12 @@ public class TileState : MonoBehaviour
 {
     private EPlayerID _ownerID = EPlayerID.None;
     [SerializeField] private EState _state;
-    [SerializeField] private float timer;
-    private float _timer = 0;
+    [SerializeField] private float defaultTimerGrow;
+    [SerializeField] private float defaultTimerBurn;
+    private float timerGrow = 0;
+    private float _timerBurn = 0;
+
+    private bool _watered = false;
     
     [SerializeField] public Mesh emptyMesh;
     [SerializeField] public Mesh growingMesh;
@@ -46,28 +50,37 @@ public class TileState : MonoBehaviour
     {
         return _ownerID;
     }
+
+    public void Water()
+    {
+        if (_watered)
+        {
+            _timerBurn *= 0.5f;
+            timerGrow *= 0.5f;
+        }
+    }
     
     private void FixedUpdate()
     {
-        if (_state is EState.Burned or EState.Growing)
+        if (_state == EState.Burned)
         {
-            _timer -= Time.fixedTime;
-            if (_timer <= 0)
+            _timerBurn -= Time.fixedDeltaTime;
+            if (_timerBurn <= 0)
             {
-                switch (_state)
-                {
-                    case EState.Burned:
-                        SetState(EState.Empty);
-                        break;
-                    case EState.Growing:
-                        SetState(EState.Grown);
-                        break;
-                    default:
-                        Debug.Log("Warning: Timer ended with odd state!");
-                        break;
-                }
+                SetState(EState.Empty);
 
-                _timer = 0;
+                _timerBurn = 0;
+                _watered = false;
+            }
+        }
+        else if (_state == EState.Growing)
+        {
+            timerGrow -= Time.fixedDeltaTime;
+            if (timerGrow <= 0)
+            {
+                SetState(EState.Grown);
+                timerGrow = 0;
+                _watered = false;
             }
         }
     }
@@ -169,11 +182,11 @@ public class TileState : MonoBehaviour
 
     private void SetTimerGrowing()
     {
-        _timer = timer;
+        timerGrow = defaultTimerGrow;
     }
     
     private void SetTimerBurned()
     {
-        _timer = timer;
+        _timerBurn = defaultTimerBurn;
     }
 }
