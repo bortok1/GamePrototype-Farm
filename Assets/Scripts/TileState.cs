@@ -144,6 +144,7 @@ public class TileState : MonoBehaviour
                     {
                         SetState(EState.Empty);
                         SlingSeed(playerID);
+                        SlingSeed(playerID);
                     }
                     else if(_state == EState.Empty)
                     {
@@ -157,6 +158,7 @@ public class TileState : MonoBehaviour
         {
             if (_state == EState.Grown)
             {
+                SlingSeed(playerID);
                 SlingSeed(playerID);
                 SetState(EState.Growing);
             }

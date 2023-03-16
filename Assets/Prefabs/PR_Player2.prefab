@@ -30,12 +30,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2274825234601331446}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.64, y: 1.5, z: 5.56}
+  m_LocalPosition: {x: 23.64, y: 1, z: 5.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7276601083675169193
 MeshFilter:
@@ -106,7 +106,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -128,6 +128,7 @@ MonoBehaviour:
   flagPlayer2: 1
   textTimePlayer1: {fileID: 0}
   textTimePlayer2: {fileID: 0}
+  seedsText: {fileID: 0}
   seedsp1: 5
   seedsp2: 5
   hitManager: {fileID: 0}
@@ -135,9 +136,15 @@ MonoBehaviour:
   flagPlayer2Hit: 1
   canPlayer1Hit: 0
   canPlayer2Hit: 0
+  robot: {fileID: 0}
+  canPlayer1HitRobot: 0
+  canPlayer2HitRobot: 0
   movementSpeed: 8
   ID: 0
   tileState: {fileID: 0}
+  tool: {fileID: 0}
+  playerID: 0
+  seeds: 5
 --- !u!54 &5357654686901388595
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -163,7 +170,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &8183268549029106940
 BoxCollider:
