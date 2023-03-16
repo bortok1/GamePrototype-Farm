@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     public float ID;
     public TileState tileState;
 
+    public Tool tool;
+    public EPlayerID playerID;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +63,8 @@ public class Player : MonoBehaviour
             }
             else if (hitManager.GetComponent<PlayerHit>().CheckHitPlayer1())
             {
+                tool.DropTool();
+                tool = null;
                 rb.velocity = new Vector3(0, 0, 0);
                 if (flagPlayer2Hit)
                 {
@@ -90,6 +94,8 @@ public class Player : MonoBehaviour
             }
             else if (hitManager.GetComponent<PlayerHit>().CheckHitPlayer2())
             {
+                tool.DropTool();
+                tool = null;
                 rb.velocity = new Vector3(0, 0, 0);
                 if (flagPlayer1Hit)
                 {
@@ -109,7 +115,23 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter(Collision collision) 
     {
-        tileState = collision.gameObject.GetComponent<TileState>();
+        if (collision.gameObject.GetComponent<TileState>())
+            tileState = collision.gameObject.GetComponent<TileState>();
+
+        if (collision.gameObject.GetComponent<Tool>())
+        {
+            GameObject toolHit = collision.gameObject;
+            Debug.Log("toolhit");
+            if (toolHit.GetComponent<Tool>().owner == EPlayerID.None)
+            {
+                if (tool)
+                {
+                    tool.DropTool();
+                }
+                tool = toolHit.GetComponent<Tool>();
+                tool.TakeTool(gameObject);
+            }
+        }
     }
 
     void OnTriggerEnter(Collider collider) 

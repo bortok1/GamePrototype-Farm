@@ -50,6 +50,12 @@ public class Map : MonoBehaviour
         else LoadMap();
     }
 
+    public Vector3 getCenter()
+    {
+        float tileSize = tileGameObject.transform.localScale.x;
+        return new Vector2(areaSizeX/2 * tileSize, areaSizeY/2 * tileSize);
+    }
+
     private void LoadMap()
     {
         string path = Application.dataPath + "/SavedMaps/savedMap.map";
