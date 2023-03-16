@@ -74,7 +74,7 @@ public class PlayerHit : MonoBehaviour
 
     void StopTime()
     {
-        _timer -= Time.fixedTime;
+        _timer -= Time.fixedDeltaTime;
         if(_timer <= 0)
         {
             afterHitPlayer1 = false;

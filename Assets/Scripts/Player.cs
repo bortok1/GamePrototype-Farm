@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
             }
             else if (hitManager.GetComponent<PlayerHit>().CheckHitPlayer1())
             {
-                tool.DropTool();
+                if(tool) tool.DropTool();
                 tool = null;
                 rb.velocity = new Vector3(0, 0, 0);
                 if (flagPlayer2Hit)
@@ -167,8 +167,8 @@ public class Player : MonoBehaviour
             canPlayer1HitRobot = true;
             canPlayer2HitRobot = true;
             Debug.Log("ROBOT");
-            Debug.Log(collider.gameObject.transform.position);
-            Debug.Log(collider.gameObject.GetComponent<Rigidbody>().velocity);
+            //Debug.Log(collider.gameObject.transform.position);
+            //Debug.Log(collider.gameObject.GetComponent<Rigidbody>().velocity);
         }
     }
 
