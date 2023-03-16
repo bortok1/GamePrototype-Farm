@@ -160,7 +160,8 @@ MonoBehaviour:
   impassableMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   overgrownMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   burnedMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  seedPrefab: {fileID: 4330646530372819366, guid: b6c18dd82cd30324292752297860d65e, type: 3}
+  seed1Prefab: {fileID: 4330646530372819366, guid: b6c18dd82cd30324292752297860d65e, type: 3}
+  seed2Prefab: {fileID: 4330646530372819366, guid: b29c8a7b71cd8bf4da5a9743d5422a23, type: 3}
   swingStrength: 2
 --- !u!65 &2434611010459721328
 BoxCollider:

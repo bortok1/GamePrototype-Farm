@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textTimePlayer1;
     [SerializeField] private TextMeshProUGUI textTimePlayer2;
 
+    [SerializeField] public TextMeshProUGUI seedsText;
+
     //Seeds
     public int seedsp1 = 5;
     public int seedsp2 = 5;
@@ -39,9 +41,12 @@ public class Player : MonoBehaviour
     public Tool tool;
     public EPlayerID playerID;
 
+    public int seeds = 5;
+
     // Start is called before the first frame update
     void Start()
-    { 
+    {
+        seedsText.text = "5";
         rb = GetComponent<Rigidbody>();
         hitTimer = Time.time;
         plantTimer = Time.time;
@@ -134,6 +139,20 @@ public class Player : MonoBehaviour
                 tool.TakeTool(gameObject);
             }
         }
+
+        if (collision.gameObject.tag == "Seed1" && playerID == EPlayerID.Player1)
+        {
+            Destroy(collision.gameObject);
+            seeds++;
+            seedsText.text = seeds.ToString();
+        }
+
+        if (collision.gameObject.tag == "Seed2" && playerID == EPlayerID.Player2)
+        {
+            Destroy(collision.gameObject);
+            seeds++;
+            seedsText.text = seeds.ToString();
+        }
     }
 
     void OnTriggerEnter(Collider collider) 
@@ -210,12 +229,17 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.N) && tileState != null) 
             {
                 if (tileState._state == EState.Empty && (Time.time - plantTimer > 0.7f || 
-                    (tool.toolType == ETool.Hoe && Time.time - plantTimer > 0.1f)))
+                    (tool && tool.toolType == ETool.Hoe && Time.time - plantTimer > 0.1f)))
                 {
-                    plantTimer = Time.time;
-                    tileState.ChangeTileState(EPlayerID.Player1);
+                    if (seeds > 0)
+                    {
+                        plantTimer = Time.time;
+                        tileState.ChangeTileState(EPlayerID.Player1);
+                        seeds--;
+                        seedsText.text = seeds.ToString();
+                    }
                 }
-                if ((Time.time - destroyTimer > 0.7f || (tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)) &&
+                if ((Time.time - destroyTimer > 0.7f || (tool && tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)) &&
                     (tileState._state == EState.Growing || tileState._state == EState.Grown) &&
                     tileState.GetOwner() == EPlayerID.Player2)
                 {
@@ -223,9 +247,13 @@ public class Player : MonoBehaviour
                     tileState.ChangeTileState(EPlayerID.Player1);
                 }
                 if (tileState._state == EState.Overgrown && (Time.time - destroyTimer > 0.7f || 
-                    (tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)))
+                    (tool && tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)))
                 {
                     destroyTimer = Time.time;
+                    tileState.ChangeTileState(EPlayerID.Player1);
+                }
+                if ((tileState._state == EState.Grown && tileState.GetOwner() == EPlayerID.Player1))
+                {
                     tileState.ChangeTileState(EPlayerID.Player1);
                 }
                 if (tool && tool.toolType == ETool.WateringCan) tileState.Water();
@@ -299,12 +327,17 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.E) && tileState !=null) 
             {
                 if (tileState._state == EState.Empty && (Time.time - plantTimer > 0.7f ||
-                    (tool.toolType == ETool.Hoe && Time.time - plantTimer > 0.1f)))
+                    (tool && tool.toolType == ETool.Hoe && Time.time - plantTimer > 0.1f)))
                 {
-                    plantTimer = Time.time;
-                    tileState.ChangeTileState(EPlayerID.Player2);
+                    if (seeds > 0)
+                    {
+                        seeds--;
+                        seedsText.text = seeds.ToString();
+                        plantTimer = Time.time;
+                        tileState.ChangeTileState(EPlayerID.Player2);
+                    }
                 }
-                if ((Time.time - destroyTimer > 0.7f || (tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)) &&
+                if ((Time.time - destroyTimer > 0.7f || (tool && tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)) &&
                     (tileState._state == EState.Growing || tileState._state == EState.Grown) &&
                     tileState.GetOwner() == EPlayerID.Player1)
                 {
@@ -312,9 +345,13 @@ public class Player : MonoBehaviour
                     tileState.ChangeTileState(EPlayerID.Player2);
                 }
                 if (tileState._state == EState.Overgrown && (Time.time - destroyTimer > 0.7f ||
-                    (tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)))
+                    (tool && tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)))
                 {
                     destroyTimer = Time.time;
+                    tileState.ChangeTileState(EPlayerID.Player2);
+                }
+                if ((tileState._state == EState.Grown && tileState.GetOwner() == EPlayerID.Player2))
+                {
                     tileState.ChangeTileState(EPlayerID.Player2);
                 }
                 if (tool && tool.toolType == ETool.WateringCan) tileState.Water();

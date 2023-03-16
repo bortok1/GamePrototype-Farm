@@ -41,7 +41,8 @@ public class TileState : MonoBehaviour
     private Renderer _myRenderer;
     private BoxCollider _myCollider;
     
-    [SerializeField] public GameObject seedPrefab;
+    [SerializeField] public GameObject seed1Prefab;
+    [SerializeField] public GameObject seed2Prefab;
     [SerializeField] public float swingStrength = 100;    // How far seed will fly
 
     private bool _firstCall = true;
@@ -142,6 +143,7 @@ public class TileState : MonoBehaviour
                     if (_state == EState.Overgrown)
                     {
                         SetState(EState.Empty);
+                        SlingSeed(playerID);
                     }
                     else if(_state == EState.Empty)
                     {
@@ -155,7 +157,7 @@ public class TileState : MonoBehaviour
         {
             if (_state == EState.Grown)
             {
-                SlingSeed();
+                SlingSeed(playerID);
                 SetState(EState.Growing);
             }
         }
@@ -169,9 +171,11 @@ public class TileState : MonoBehaviour
         }
     }
 
-    private void SlingSeed()
+    private void SlingSeed(EPlayerID playerID)
     {
-        GameObject newSeed = Instantiate(seedPrefab, this.transform.position + new Vector3(0,3,0), Quaternion.identity);
+        GameObject newSeed;
+        if (playerID == EPlayerID.Player1) newSeed = Instantiate(seed1Prefab, this.transform.position + new Vector3(0,3,0), Quaternion.identity);
+        else newSeed = Instantiate(seed2Prefab, this.transform.position + new Vector3(0, 3, 0), Quaternion.identity);
         Rigidbody newSeedRigidbody = newSeed.GetComponent<Rigidbody>();
         if (newSeedRigidbody != null)
         {

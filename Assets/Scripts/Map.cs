@@ -25,7 +25,7 @@ public class Map : MonoBehaviour
     [SerializeField] [Range(0, 300)] private float timeBetweenRounds = 5;
     
     [SerializeField] private bool randomMap = true;
-    
+
     private List<TileState> _tileStates = new();
     private readonly List<Vector2Int> _availablePos = new();
 
@@ -204,6 +204,11 @@ public class Map : MonoBehaviour
             _timer = timePerRound;
             ClearMap();
             GenerateMap();
+            foreach(Player player in FindObjectsOfType<Player>())
+            {
+                player.seeds = 5;
+                player.seedsText.text = player.seeds.ToString();
+            }
         }
         
         int p1Score = 0, p2Score = 0;
