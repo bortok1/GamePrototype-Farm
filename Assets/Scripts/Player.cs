@@ -274,10 +274,12 @@ public class Player : MonoBehaviour
             } 
             //Time
 
-            if (Input.GetKey(KeyCode.M) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer2() && seedsp1 == 5)
+            if (Input.GetKey(KeyCode.M) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer2() && seeds >= 5)
             {
                 timeManager.GetComponent<TimeStop>().StopTimePlayer1();
-                seedsp1 = 0;
+                seeds -= 5;
+                seedsText.text = seeds.ToString();
+                //seedsp1 = seeds;
             }
             
         }
@@ -372,10 +374,12 @@ public class Player : MonoBehaviour
             }
 
             //Time
-            if (Input.GetKey(KeyCode.Q) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1() && seedsp2 == 5)
+            if (Input.GetKey(KeyCode.Q) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1() && seeds >= 5)
             {
                 timeManager.GetComponent<TimeStop>().StopTimePlayer2();
-                seedsp1 = 0;
+                seeds -= 5;
+                seedsText.text = seeds.ToString();
+                //seedsp2 = seeds;
             }
         }
         else if (name =="Player2" && !Input.anyKey) 
