@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7755975132095700971}
   - component: {fileID: 7633540046204864189}
   - component: {fileID: 3247005710803173552}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PR_Player1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 640
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1

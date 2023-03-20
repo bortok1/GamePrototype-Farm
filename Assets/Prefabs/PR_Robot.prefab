@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2100632226717731947}
   - component: {fileID: 8451938245178692954}
   - component: {fileID: 5156588756369331018}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PR_Robot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1792
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 6869915570017410163}
   - component: {fileID: 4124562804776455734}
   - component: {fileID: 813579988065602918}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,6 +335,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e0c6865c7cf2a8d4d9519ee3d3bf25c9, type: 3}
       propertyPath: m_Name
       value: Arrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e0c6865c7cf2a8d4d9519ee3d3bf25c9, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

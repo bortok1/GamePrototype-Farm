@@ -274,7 +274,7 @@ public class Player : MonoBehaviour
             } 
             //Time
 
-            if (Input.GetKey(KeyCode.M) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer2() && seeds >= 5)
+            if (Input.GetKey(KeyCode.M) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1() && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer2() && seeds >= 5)
             {
                 timeManager.GetComponent<TimeStop>().StopTimePlayer1();
                 seeds -= 5;
@@ -374,7 +374,7 @@ public class Player : MonoBehaviour
             }
 
             //Time
-            if (Input.GetKey(KeyCode.Q) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1() && seeds >= 5)
+            if (Input.GetKey(KeyCode.Q) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1() && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer2() && seeds >= 5)
             {
                 timeManager.GetComponent<TimeStop>().StopTimePlayer2();
                 seeds -= 5;

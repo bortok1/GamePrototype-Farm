@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7057724058726370564}
   - component: {fileID: 4062869936816172708}
   - component: {fileID: 3389488656340552978}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shovel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,11 +142,11 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
