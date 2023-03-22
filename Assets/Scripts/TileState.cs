@@ -166,7 +166,7 @@ public class TileState : MonoBehaviour
                 break;
             case EState.Overgrown: _myMesh.sharedMesh = overgrownMesh;
                 //_myRenderer.material.color = new Color(0,0,255,1); break;
-                _myRenderer.materials = overgrown.GetComponent<Renderer>().sharedMaterials;
+                _myRenderer.materials = empty.GetComponent<Renderer>().sharedMaterials;
                 break;
             case EState.Burned: _myMesh.sharedMesh = burnedMesh; SetTimerBurned();
                 //_myRenderer.material.color = new Color(255,0,0,1);

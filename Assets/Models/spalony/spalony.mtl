@@ -8,10 +8,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 3
-map_Kd ../textures/spalony_kwiatek/kwio_lsicie lodyga_BaseColor.png
-map_Ns ../textures/spalony_kwiatek/kwio_lsicie lodyga_Roughness.png
-map_refl ../textures/spalony_kwiatek/kwio_lsicie lodyga_Metallic.png
-map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_lsicie lodyga_Normal.png
+map_Kd ../textures/spalony_kwiatek/kwio_lsicie lodyga_BaseColor_s.png
+map_Ns ../textures/spalony_kwiatek/kwio_lsicie lodyga_Roughness_s.png
+map_refl ../textures/spalony_kwiatek/kwio_lsicie lodyga_Metallic_s.png
+map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_lsicie lodyga_Normal_s.png
 
 newmtl platki.005
 Ka 1.000000 1.000000 1.000000
@@ -20,10 +20,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 3
-map_Kd ../textures/spalony_kwiatek/kwio_platki_BaseColor.png
-map_Ns ../textures/spalony_kwiatek/kwio_platki_Roughness.png
-map_refl ../textures/spalony_kwiatek/kwio_platki_Metallic.png
-map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_platki_Normal.png
+map_Kd ../textures/spalony_kwiatek/kwio_platki_BaseColor_s.png
+map_Ns ../textures/spalony_kwiatek/kwio_platki_Roughness_s.png
+map_refl ../textures/spalony_kwiatek/kwio_platki_Metallic_s.png
+map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_platki_Normal_s.png
 
 newmtl platki.006
 Ka 1.000000 1.000000 1.000000
@@ -32,10 +32,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 3
-map_Kd ../textures/spalony_kwiatek/kwio_platki_BaseColor.png
-map_Ns ../textures/spalony_kwiatek/kwio_platki_Roughness.png
-map_refl ../textures/spalony_kwiatek/kwio_platki_Metallic.png
-map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_platki_Normal.png
+map_Kd ../textures/spalony_kwiatek/kwio_platki_BaseColor_s.png
+map_Ns ../textures/spalony_kwiatek/kwio_platki_Roughness_s.png
+map_refl ../textures/spalony_kwiatek/kwio_platki_Metallic_s.png
+map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_platki_Normal_s.png
 
 newmtl platki.007
 Ka 1.000000 1.000000 1.000000
@@ -44,10 +44,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 3
-map_Kd ../textures/spalony_kwiatek/kwio_platki_BaseColor.png
-map_Ns ../textures/spalony_kwiatek/kwio_platki_Roughness.png
-map_refl ../textures/spalony_kwiatek/kwio_platki_Metallic.png
-map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_platki_Normal.png
+map_Kd ../textures/spalony_kwiatek/kwio_platki_BaseColor_s.png
+map_Ns ../textures/spalony_kwiatek/kwio_platki_Roughness_s.png
+map_refl ../textures/spalony_kwiatek/kwio_platki_Metallic_s.png
+map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_platki_Normal_s.png
 
 newmtl platki.008
 Ka 1.000000 1.000000 1.000000
@@ -56,10 +56,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 3
-map_Kd ../textures/spalony_kwiatek/kwio_platki_BaseColor.png
-map_Ns ../textures/spalony_kwiatek/kwio_platki_Roughness.png
-map_refl ../textures/spalony_kwiatek/kwio_platki_Metallic.png
-map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_platki_Normal.png
+map_Kd ../textures/spalony_kwiatek/kwio_platki_BaseColor_s.png
+map_Ns ../textures/spalony_kwiatek/kwio_platki_Roughness_s.png
+map_refl ../textures/spalony_kwiatek/kwio_platki_Metallic_s.png
+map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_platki_Normal_s.png
 
 newmtl platki.009
 Ka 1.000000 1.000000 1.000000
@@ -68,10 +68,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 3
-map_Kd ../textures/spalony_kwiatek/kwio_platki_BaseColor.png
-map_Ns ../textures/spalony_kwiatek/kwio_platki_Roughness.png
-map_refl ../textures/spalony_kwiatek/kwio_platki_Metallic.png
-map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_platki_Normal.png
+map_Kd ../textures/spalony_kwiatek/kwio_platki_BaseColor_s.png
+map_Ns ../textures/spalony_kwiatek/kwio_platki_Roughness_s.png
+map_refl ../textures/spalony_kwiatek/kwio_platki_Metallic_s.png
+map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_platki_Normal_s.png
 
 newmtl podstawa.032
 Ka 1.000000 1.000000 1.000000
@@ -80,7 +80,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 3
-map_Kd ../textures/spalony_kwiatek/kwio_podstawa_BaseColor.png
-map_Ns ../textures/spalony_kwiatek/kwio_podstawa_Roughness.png
-map_refl ../textures/spalony_kwiatek/kwio_podstawa_Metallic.png
-map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_podstawa_Normal.png
+map_Kd ../textures/spalony_kwiatek/kwio_podstawa_BaseColor_s.png
+map_Ns ../textures/spalony_kwiatek/kwio_podstawa_Roughness_s.png
+map_refl ../textures/spalony_kwiatek/kwio_podstawa_Metallic_s.png
+map_Bump -bm 1.000000 ../textures/spalony_kwiatek/kwio_podstawa_Normal_s.png
