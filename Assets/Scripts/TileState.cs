@@ -120,6 +120,7 @@ public class TileState : MonoBehaviour
 
     public void SetState(EState newState)
     {
+        Debug.Log("Set STATE");
         if (_firstCall)
         {
             _myMesh = GetComponentInChildren<MeshFilter>();
@@ -144,18 +145,18 @@ public class TileState : MonoBehaviour
             case EState.Growing: _myMesh.sharedMesh = growingMesh; SetTimerGrowing(); 
                 if(_ownerID == EPlayerID.Player1)
                     //_myRenderer.material.color = new Color(0,150,150,1);
-                    _myRenderer.materials = growing.GetComponent<Renderer>().sharedMaterials;
+                    _myRenderer.materials = growing_b.GetComponent<Renderer>().sharedMaterials;
                 if (_ownerID == EPlayerID.Player2)
                     //_myRenderer.material.color = new Color(150,0,150,1);
-                    _myRenderer.materials = growing_b.GetComponent<Renderer>().sharedMaterials;
+                    _myRenderer.materials = growing.GetComponent<Renderer>().sharedMaterials;
                 break;
             case EState.Grown: _myMesh.sharedMesh = grownMesh; 
                 if(_ownerID == EPlayerID.Player1)
                     //_myRenderer.material.color = new Color(0,255,255,1); 
-                    _myRenderer.materials = grown.GetComponent<Renderer>().sharedMaterials;
+                    _myRenderer.materials = grown_b.GetComponent<Renderer>().sharedMaterials;
                 if (_ownerID == EPlayerID.Player2)
                     //_myRenderer.material.color = new Color(255,0,255,1);
-                    _myRenderer.materials = grown_b.GetComponent<Renderer>().sharedMaterials;
+                    _myRenderer.materials = grown.GetComponent<Renderer>().sharedMaterials;
                 break;
             case EState.Impassable: _myMesh.sharedMesh = impassableMesh;
                 _myCollider.center = new Vector3(0, 1, 0);
