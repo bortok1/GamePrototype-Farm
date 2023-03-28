@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
         {
             canPlayer1HitRobot = true;
             canPlayer2HitRobot = true;
-            Debug.Log("ROBOT");
+            //Debug.Log("ROBOT");
             //Debug.Log(collider.gameObject.transform.position);
             //Debug.Log(collider.gameObject.GetComponent<Rigidbody>().velocity);
         }
@@ -183,7 +183,7 @@ public class Player : MonoBehaviour
         {
             canPlayer1HitRobot = false;
             canPlayer2HitRobot = false;
-            Debug.Log("ROBOT EXIT");
+            //Debug.Log("ROBOT EXIT");
         }
     }
 
@@ -362,7 +362,7 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.R) && canPlayer2Hit == true && (Time.time - hitTimer > 2.0f) && !hitManager.GetComponent<PlayerHit>().CheckHitPlayer2())
             {
                 hitTimer = Time.time;
-                Debug.Log("HIT 2");
+                //Debug.Log("HIT 2");
                 hitManager.GetComponent<PlayerHit>().StunP1();
             } 
 
@@ -370,7 +370,7 @@ public class Player : MonoBehaviour
             {
                 hitTimer = Time.time;
                 robot.GetComponent<RobotBehavior>().OnHitByPlayer(transform.position);
-                Debug.Log("HIT ROBOT");
+                //Debug.Log("HIT ROBOT");
             }
 
             //Time

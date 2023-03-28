@@ -74,7 +74,7 @@ public class TimeStop : MonoBehaviour
 
     void StopTime()
     {
-        _timer -= Time.fixedTime;
+        _timer -= Time.fixedDeltaTime;
         if(_timer <= 0)
         {
             stopTimePlayer1 = false;
