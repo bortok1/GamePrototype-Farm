@@ -42,7 +42,7 @@ public class RobotBehavior : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.GetType() == typeof(BoxCollider)
-            && (collision.gameObject.CompareTag("Wall")))
+            && (collision.gameObject.CompareTag("Wall")) || (collision.gameObject.CompareTag("Player")))
         {
             _forward = Quaternion.Euler(0, _changeAngle, 0) * _forward;
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, this.transform.rotation * Quaternion.Euler(0, _changeAngle, 0), rotationSpeed);

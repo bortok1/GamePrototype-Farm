@@ -59,6 +59,7 @@ public class TileState : MonoBehaviour
             _watered = true;
             _timerBurn *= 0.5f;
             timerGrow *= 0.5f;
+            Debug.Log("Rain");
         }
     }
     

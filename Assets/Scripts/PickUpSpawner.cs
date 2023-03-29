@@ -1,14 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PickUpSpawner : MonoBehaviour
 {
-    public GameObject pickUp;
+    public GameObject[] pickUps;
     public float howOftenSpawn;
     public float radius;
 
     private float _timer;
+    private int _index;
 
     // Start is called before the first frame update
     void Start()
@@ -33,14 +37,16 @@ public class PickUpSpawner : MonoBehaviour
             else
             {
                 _timer = howOftenSpawn;
-                Spawning();
+                _index = Random.Range(0, pickUps.Length);
+                Spawning(pickUps[_index]);
             }
         }
     }
 
-    GameObject Spawning()
-    { 
-        GameObject spawning = GameObject.Instantiate(pickUp);
+    GameObject Spawning(GameObject pickup)
+    {
+        Debug.Log(pickup);
+        GameObject spawning = GameObject.Instantiate(pickup);
         float x, y;
         x = Random.Range(-radius, radius);
         y = Random.Range(-radius, radius);
