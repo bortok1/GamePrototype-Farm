@@ -192,106 +192,6 @@ public class Player : MonoBehaviour
         if (name == "Player1" && Input.anyKey) 
         {
 
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                dirZ = movementSpeed;
-            }
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                dirZ = -movementSpeed;
-            }
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                dirX = -movementSpeed;
-            }
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                dirX = movementSpeed;
-            }
-
-            if (Input.GetKeyUp(KeyCode.UpArrow))
-            {
-                dirZ = 0;
-            }
-            if (Input.GetKeyUp(KeyCode.DownArrow))
-            {
-                dirZ = 0;
-            }
-            if (Input.GetKeyUp(KeyCode.LeftArrow))
-            {
-                dirX = 0;
-            }
-            if (Input.GetKeyUp(KeyCode.RightArrow))
-            {
-                dirX = 0;
-            }
-            
-            if (Input.GetKey(KeyCode.N) && tileState != null) 
-            {
-                if (tileState._state == EState.Empty && (Time.time - plantTimer > 0.7f || 
-                    (tool && tool.toolType == ETool.Hoe && Time.time - plantTimer > 0.1f)))
-                {
-                    if (seeds > 0)
-                    {
-                        plantTimer = Time.time;
-                        tileState.ChangeTileState(EPlayerID.Player1);
-                        seeds--;
-                        seedsText.text = seeds.ToString();
-                    }
-                }
-                if ((Time.time - destroyTimer > 0.7f || (tool && tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)) &&
-                    (tileState._state == EState.Growing || tileState._state == EState.Grown) &&
-                    tileState.GetOwner() == EPlayerID.Player2)
-                {
-                    destroyTimer = Time.time;
-                    tileState.ChangeTileState(EPlayerID.Player1);
-                }
-                if (tileState._state == EState.Overgrown && (Time.time - destroyTimer > 0.7f || 
-                    (tool && tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)))
-                {
-                    destroyTimer = Time.time;
-                    tileState.ChangeTileState(EPlayerID.Player1);
-                }
-                if ((tileState._state == EState.Grown && tileState.GetOwner() == EPlayerID.Player1))
-                {
-                    tileState.ChangeTileState(EPlayerID.Player1);
-                }
-                if (tool && tool.toolType == ETool.WateringCan) tileState.Water();
-            }
-
-            if (Input.GetKey(KeyCode.L) && canPlayer1Hit == true && (Time.time - hitTimer > 2.0f) && !hitManager.GetComponent<PlayerHit>().CheckHitPlayer1())
-            {
-                hitTimer = Time.time;
-                Debug.Log("HIT 1");
-                hitManager.GetComponent<PlayerHit>().StunP2();
-            } 
-
-            if (Input.GetKey(KeyCode.L) && canPlayer1HitRobot == true && (Time.time - hitTimer > 2.0f))
-            {
-                hitTimer = Time.time;
-                robot.GetComponent<RobotBehavior>().OnHitByPlayer(transform.position);
-                Debug.Log("HIT ROBOT");
-            } 
-            //Time
-
-            if (Input.GetKey(KeyCode.M) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1() && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer2() && seeds >= 5)
-            {
-                timeManager.GetComponent<TimeStop>().StopTimePlayer1();
-                seeds -= 5;
-                seedsText.text = seeds.ToString();
-                //seedsp1 = seeds;
-            }
-            
-        }
-        else if (name =="Player1" && !Input.anyKey) 
-        {
-            dirX = 0f;
-            dirZ = 0f;
-        }
-
-
-        if (name == "Player2" && Input.anyKey)
-        {
             if (Input.GetKey(KeyCode.W))
             {
                 dirZ = movementSpeed;
@@ -325,8 +225,108 @@ public class Player : MonoBehaviour
             {
                 dirX = 0;
             }
+            
+            if (Input.GetKey(KeyCode.R) && tileState != null) 
+            {
+                if (tileState._state == EState.Empty && (Time.time - plantTimer > 0.7f || 
+                    (tool && tool.toolType == ETool.Hoe && Time.time - plantTimer > 0.1f)))
+                {
+                    if (seeds > 0)
+                    {
+                        plantTimer = Time.time;
+                        tileState.ChangeTileState(EPlayerID.Player1);
+                        seeds--;
+                        seedsText.text = seeds.ToString();
+                    }
+                }
+                if ((Time.time - destroyTimer > 0.7f || (tool && tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)) &&
+                    (tileState._state == EState.Growing || tileState._state == EState.Grown) &&
+                    tileState.GetOwner() == EPlayerID.Player2)
+                {
+                    destroyTimer = Time.time;
+                    tileState.ChangeTileState(EPlayerID.Player1);
+                }
+                if (tileState._state == EState.Overgrown && (Time.time - destroyTimer > 0.7f || 
+                    (tool && tool.toolType == ETool.Shovel && Time.time - destroyTimer > 0.1f)))
+                {
+                    destroyTimer = Time.time;
+                    tileState.ChangeTileState(EPlayerID.Player1);
+                }
+                if ((tileState._state == EState.Grown && tileState.GetOwner() == EPlayerID.Player1))
+                {
+                    tileState.ChangeTileState(EPlayerID.Player1);
+                }
+                if (tool && tool.toolType == ETool.WateringCan) tileState.Water();
+            }
 
-            if (Input.GetKey(KeyCode.E) && tileState !=null) 
+            if (Input.GetKey(KeyCode.T) && canPlayer1Hit == true && (Time.time - hitTimer > 2.0f) && !hitManager.GetComponent<PlayerHit>().CheckHitPlayer1())
+            {
+                hitTimer = Time.time;
+                Debug.Log("HIT 1");
+                hitManager.GetComponent<PlayerHit>().StunP2();
+            } 
+
+            if (Input.GetKey(KeyCode.T) && canPlayer1HitRobot == true && (Time.time - hitTimer > 2.0f))
+            {
+                hitTimer = Time.time;
+                robot.GetComponent<RobotBehavior>().OnHitByPlayer(transform.position);
+                Debug.Log("HIT ROBOT");
+            } 
+            //Time
+
+            if (Input.GetKey(KeyCode.Y) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1() && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer2() && seeds >= 5)
+            {
+                timeManager.GetComponent<TimeStop>().StopTimePlayer1();
+                seeds -= 5;
+                seedsText.text = seeds.ToString();
+                //seedsp1 = seeds;
+            }
+            
+        }
+        else if (name =="Player1" && !Input.anyKey) 
+        {
+            dirX = 0f;
+            dirZ = 0f;
+        }
+
+
+        if (name == "Player2" && Input.anyKey)
+        {
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                dirZ = movementSpeed;
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                dirZ = -movementSpeed;
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                dirX = -movementSpeed;
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                dirX = movementSpeed;
+            }
+
+            if (Input.GetKeyUp(KeyCode.UpArrow))
+            {
+                dirZ = 0;
+            }
+            if (Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                dirZ = 0;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftArrow))
+            {
+                dirX = 0;
+            }
+            if (Input.GetKeyUp(KeyCode.RightArrow))
+            {
+                dirX = 0;
+            }
+
+            if (Input.GetKey(KeyCode.Period) && tileState !=null) 
             {
                 if (tileState._state == EState.Empty && (Time.time - plantTimer > 0.7f ||
                     (tool && tool.toolType == ETool.Hoe && Time.time - plantTimer > 0.1f)))
@@ -359,14 +359,14 @@ public class Player : MonoBehaviour
                 if (tool && tool.toolType == ETool.WateringCan) tileState.Water();
             }
 
-            if (Input.GetKey(KeyCode.R) && canPlayer2Hit == true && (Time.time - hitTimer > 2.0f) && !hitManager.GetComponent<PlayerHit>().CheckHitPlayer2())
+            if (Input.GetKey(KeyCode.Comma) && canPlayer2Hit == true && (Time.time - hitTimer > 2.0f) && !hitManager.GetComponent<PlayerHit>().CheckHitPlayer2())
             {
                 hitTimer = Time.time;
                 //Debug.Log("HIT 2");
                 hitManager.GetComponent<PlayerHit>().StunP1();
             } 
 
-            if (Input.GetKey(KeyCode.R) && canPlayer2HitRobot == true && (Time.time - hitTimer > 2.0f))
+            if (Input.GetKey(KeyCode.Comma) && canPlayer2HitRobot == true && (Time.time - hitTimer > 2.0f))
             {
                 hitTimer = Time.time;
                 robot.GetComponent<RobotBehavior>().OnHitByPlayer(transform.position);
@@ -374,7 +374,7 @@ public class Player : MonoBehaviour
             }
 
             //Time
-            if (Input.GetKey(KeyCode.Q) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1() && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer2() && seeds >= 5)
+            if (Input.GetKey(KeyCode.M) && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer1() && !timeManager.GetComponent<TimeStop>().CheckTimeStopPlayer2() && seeds >= 5)
             {
                 timeManager.GetComponent<TimeStop>().StopTimePlayer2();
                 seeds -= 5;
@@ -404,17 +404,17 @@ public class Player : MonoBehaviour
             switch (randomKey)
             {
                 case 1:
-                    textTimePlayer1.text = "UP";
+                    textTimePlayer1.text = "W";
                     done = false;
                     while (!done)
                     {
-                        if (Input.GetKey(KeyCode.UpArrow))
+                        if (Input.GetKey(KeyCode.W))
                         {
                             i++;
                             done = true;
                             yield return new WaitForSeconds(0.2f);
                         }
-                        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow))
+                        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
                         {
                             i = 0;
                             yield return new WaitForSeconds(0.2f);
@@ -428,17 +428,17 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 2:
-                    textTimePlayer1.text = "Down";
+                    textTimePlayer1.text = "S";
                     done = false;
                     while (!done)
                     {
-                        if (Input.GetKey(KeyCode.DownArrow))
+                        if (Input.GetKey(KeyCode.S))
                         {
                             i++;
                             done = true;
                             yield return new WaitForSeconds(0.2f);
                         }
-                        else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+                        else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
                         {
                             i = 0;
                             yield return new WaitForSeconds(0.2f);
@@ -453,17 +453,17 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 3:
-                    textTimePlayer1.text = "Left";
+                    textTimePlayer1.text = "A";
                     done = false;
                     while (!done)
                     {
-                        if (Input.GetKey(KeyCode.LeftArrow))
+                        if (Input.GetKey(KeyCode.A))
                         {
                             i++;
                             done = true;
                             yield return new WaitForSeconds(0.2f);
                         }
-                        else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow))
+                        else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
                         {
                             i = 0;
                             yield return new WaitForSeconds(0.2f);
@@ -477,17 +477,17 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 4:
-                    textTimePlayer1.text = "Right";
+                    textTimePlayer1.text = "D";
                     done = false;
                     while (!done)
                     {
-                        if (Input.GetKey(KeyCode.RightArrow))
+                        if (Input.GetKey(KeyCode.D))
                         {
                             i++;
                             done = true;
                             yield return new WaitForSeconds(0.2f);
                         }
-                        else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow))
+                        else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A))
                         {
                             i = 0;
                             yield return new WaitForSeconds(0.2f);
@@ -521,17 +521,17 @@ public class Player : MonoBehaviour
             switch (randomKey)
             {
                 case 1:
-                    textTimePlayer2.text = "W";
+                    textTimePlayer2.text = "UP";
                     done = false;
                     while (!done)
                     {
-                        if (Input.GetKey(KeyCode.W))
+                        if (Input.GetKey(KeyCode.UpArrow))
                         {
                             i++;
                             done = true;
                             yield return new WaitForSeconds(0.2f);
                         }
-                        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
+                        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow))
                         {
                             i = 0;
                             yield return new WaitForSeconds(0.2f);
@@ -545,17 +545,17 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 2:
-                    textTimePlayer2.text = "A";
+                    textTimePlayer2.text = "LEFT";
                     done = false;
                     while (!done)
                     {
-                        if (Input.GetKey(KeyCode.A))
+                        if (Input.GetKey(KeyCode.LeftArrow))
                         {
                             i++;
                             done = true;
                             yield return new WaitForSeconds(0.2f);
                         }
-                        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W))
+                        else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow))
                         {
                             i = 0;
                             yield return new WaitForSeconds(0.2f);
@@ -569,17 +569,17 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 3:
-                    textTimePlayer2.text = "S";
+                    textTimePlayer2.text = "DOWN";
                     done = false;
                     while (!done)
                     {
-                        if (Input.GetKey(KeyCode.S))
+                        if (Input.GetKey(KeyCode.DownArrow))
                         {
                             i++;
                             done = true;
                             yield return new WaitForSeconds(0.2f);
                         }
-                        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W))
+                        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow))
                         {
                             i = 0;
                             yield return new WaitForSeconds(0.2f);
@@ -593,17 +593,17 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case 4:
-                    textTimePlayer2.text = "D";
+                    textTimePlayer2.text = "RIGHT";
                     done = false;
                     while (!done)
                     {
-                        if (Input.GetKey(KeyCode.D))
+                        if (Input.GetKey(KeyCode.RightArrow))
                         {
                             i++;
                             done = true;
                             yield return new WaitForSeconds(0.2f);
                         }
-                        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W))
+                        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.UpArrow))
                         {
                             i = 0;
                             yield return new WaitForSeconds(0.2f);

@@ -29,13 +29,24 @@ public class TileState : MonoBehaviour
     private float _timerBurn = 0;
 
     private bool _watered = false;
-    
-    [SerializeField] public Mesh emptyMesh;
-    [SerializeField] public Mesh growingMesh;
-    [SerializeField] public Mesh grownMesh;
-    [SerializeField] public Mesh impassableMesh;
-    [SerializeField] public Mesh overgrownMesh;
-    [SerializeField] public Mesh burnedMesh;
+
+    [SerializeField] public GameObject empty;
+    [SerializeField] public GameObject growing;
+    [SerializeField] public GameObject growing_b;
+    [SerializeField] public GameObject grown;
+    [SerializeField] public GameObject grown_b;
+    [SerializeField] public GameObject impassable;
+    [SerializeField] public GameObject overgrown;
+    [SerializeField] public GameObject burned;
+
+    private Mesh emptyMesh;
+    private Mesh growingMesh;
+    private Mesh growingMesh_b;
+    private Mesh grownMesh;
+    private Mesh grownMesh_b;
+    private Mesh impassableMesh;
+    private Mesh overgrownMesh;
+    private Mesh burnedMesh;
     
     private MeshFilter _myMesh;
     private Renderer _myRenderer;
@@ -46,6 +57,26 @@ public class TileState : MonoBehaviour
     [SerializeField] public float swingStrength = 100;    // How far seed will fly
 
     private bool _firstCall = true;
+
+    public void Awake()
+    {
+        MeshFilter viewedModelFilter = (MeshFilter)empty.GetComponent("MeshFilter");
+        emptyMesh = viewedModelFilter.sharedMesh;
+        viewedModelFilter = (MeshFilter)growing.GetComponent("MeshFilter");
+        growingMesh = viewedModelFilter.sharedMesh;
+        viewedModelFilter = (MeshFilter)growing_b.GetComponent("MeshFilter");
+        growingMesh_b = viewedModelFilter.sharedMesh;
+        viewedModelFilter = (MeshFilter)grown.GetComponent("MeshFilter");
+        grownMesh = viewedModelFilter.sharedMesh;
+        viewedModelFilter = (MeshFilter)grown_b.GetComponent("MeshFilter");
+        grownMesh_b = viewedModelFilter.sharedMesh;
+        viewedModelFilter = (MeshFilter)impassable.GetComponent("MeshFilter");
+        impassableMesh = viewedModelFilter.sharedMesh;
+        viewedModelFilter = (MeshFilter)overgrown.GetComponent("MeshFilter");
+        overgrownMesh = viewedModelFilter.sharedMesh;
+        viewedModelFilter = (MeshFilter)burned.GetComponent("MeshFilter");
+        burnedMesh = viewedModelFilter.sharedMesh;
+    }
 
     public EPlayerID GetOwner()
     {
@@ -90,6 +121,7 @@ public class TileState : MonoBehaviour
 
     public void SetState(EState newState)
     {
+        Debug.Log("Set STATE");
         if (_firstCall)
         {
             _myMesh = GetComponentInChildren<MeshFilter>();
@@ -107,28 +139,39 @@ public class TileState : MonoBehaviour
         _state = newState;
         switch (_state)
         { 
-            case EState.Empty: _myMesh.sharedMesh  = emptyMesh; 
-                _myRenderer.material.color = new Color(255,255,255,1); break;
+            case EState.Empty: _myMesh.sharedMesh  = emptyMesh;
+                //_myRenderer.material.color = new Color(255,255,255,1);
+                _myRenderer.materials = empty.GetComponent<Renderer>().sharedMaterials;
+                break;
             case EState.Growing: _myMesh.sharedMesh = growingMesh; SetTimerGrowing(); 
                 if(_ownerID == EPlayerID.Player1)
-                    _myRenderer.material.color = new Color(0,150,150,1); 
-                if(_ownerID == EPlayerID.Player2)
-                    _myRenderer.material.color = new Color(150,0,150,1);
+                    //_myRenderer.material.color = new Color(0,150,150,1);
+                    _myRenderer.materials = growing_b.GetComponent<Renderer>().sharedMaterials;
+                if (_ownerID == EPlayerID.Player2)
+                    //_myRenderer.material.color = new Color(150,0,150,1);
+                    _myRenderer.materials = growing.GetComponent<Renderer>().sharedMaterials;
                 break;
             case EState.Grown: _myMesh.sharedMesh = grownMesh; 
                 if(_ownerID == EPlayerID.Player1)
-                    _myRenderer.material.color = new Color(0,255,255,1); 
-                if(_ownerID == EPlayerID.Player2)
-                    _myRenderer.material.color = new Color(255,0,255,1);
+                    //_myRenderer.material.color = new Color(0,255,255,1); 
+                    _myRenderer.materials = grown_b.GetComponent<Renderer>().sharedMaterials;
+                if (_ownerID == EPlayerID.Player2)
+                    //_myRenderer.material.color = new Color(255,0,255,1);
+                    _myRenderer.materials = grown.GetComponent<Renderer>().sharedMaterials;
                 break;
             case EState.Impassable: _myMesh.sharedMesh = impassableMesh;
                 _myCollider.center = new Vector3(0, 1, 0);
                 this.gameObject.tag = "Wall";
-                _myRenderer.material.color = new Color(0,0,0,1); break;
-            case EState.Overgrown: _myMesh.sharedMesh = overgrownMesh; 
-                _myRenderer.material.color = new Color(0,0,255,1); break;
+                //_myRenderer.material.color = new Color(0,0,0,1); break;
+                _myRenderer.materials = impassable.GetComponent<Renderer>().sharedMaterials;
+                break;
+            case EState.Overgrown: _myMesh.sharedMesh = overgrownMesh;
+                //_myRenderer.material.color = new Color(0,0,255,1); break;
+                _myRenderer.materials = empty.GetComponent<Renderer>().sharedMaterials;
+                break;
             case EState.Burned: _myMesh.sharedMesh = burnedMesh; SetTimerBurned();
-                _myRenderer.material.color = new Color(255,0,0,1);
+                //_myRenderer.material.color = new Color(255,0,0,1);
+                _myRenderer.materials = burned.GetComponent<Renderer>().sharedMaterials;
                 _ownerID = EPlayerID.None; break;
         }
     }
