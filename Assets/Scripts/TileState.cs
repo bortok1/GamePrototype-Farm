@@ -21,7 +21,7 @@ public enum EState
 
 public class TileState : MonoBehaviour
 {
-    private EPlayerID _ownerID = EPlayerID.None;
+    public EPlayerID _ownerID = EPlayerID.None;
     [SerializeField] public EState _state;
     [SerializeField] private float defaultTimerGrow;
     [SerializeField] private float defaultTimerBurn;

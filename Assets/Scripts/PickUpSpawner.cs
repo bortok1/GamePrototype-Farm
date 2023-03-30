@@ -13,11 +13,16 @@ public class PickUpSpawner : MonoBehaviour
 
     private float _timer;
     private int _index;
+    //private SphereCollider _sphere;
 
     // Start is called before the first frame update
     void Start()
     {
         _timer = howOftenSpawn;
+        //_sphere = this.gameObject.AddComponent<SphereCollider>();
+        //_sphere.center = Vector3.zero;
+        //_sphere.radius = radius;
+        //_sphere.enabled = false;
     }
 
     // Update is called once per frame
