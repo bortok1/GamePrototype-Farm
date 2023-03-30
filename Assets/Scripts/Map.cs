@@ -14,8 +14,6 @@ public class Map : MonoBehaviour
     [SerializeField] [Range(0, 100)] int numberOfOvergrow = 30;
     [SerializeField] GameObject tileGameObject;
 
-    [SerializeField] float tileSize;
-
     [SerializeField] private RawImage sliderPlayer1;
     [SerializeField] private RawImage sliderPlayer2;
     
@@ -54,7 +52,7 @@ public class Map : MonoBehaviour
 
     public Vector3 getCenter()
     {
-        //float tileSize = tileGameObject.transform.localScale.x;
+        float tileSize = tileGameObject.transform.localScale.x;
         return new Vector2(areaSizeX/2 * tileSize, areaSizeY/2 * tileSize);
     }
 
@@ -168,7 +166,8 @@ public class Map : MonoBehaviour
 
     private void BuildMap(EState[,] tiles)
     {
-        //float tileSize = tileGameObject.transform.localScale.x;
+        float tileSize = tileGameObject.transform.localScale.x;
+        
         for (int i = 0; i < areaSizeX; i++)
         {
             for (int j = 0; j < areaSizeY; j++)

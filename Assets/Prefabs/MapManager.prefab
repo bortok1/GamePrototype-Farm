@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7718899984130755810
 MonoBehaviour:
@@ -49,12 +49,7 @@ MonoBehaviour:
   numberOfImpassable: 15
   numberOfOvergrow: 30
   tileGameObject: {fileID: 4746857774766132080, guid: afe63dcb09fab4a47b9e75585c56ccc0, type: 3}
-  tileSize: 1
   sliderPlayer1: {fileID: 0}
   sliderPlayer2: {fileID: 0}
   textPlayer1: {fileID: 0}
   textPlayer2: {fileID: 0}
-  textTimer: {fileID: 0}
-  timePerRound: 120
-  timeBetweenRounds: 5
-  randomMap: 1
